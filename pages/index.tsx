@@ -1,19 +1,13 @@
-import { Welcome } from '../components/Welcome/Welcome';
-import { ColorSchemeToggle } from '../components/ColorSchemeToggle/ColorSchemeToggle';
 import { HeaderSearch } from '../components/HeaderSearch/HeaderSearch';
 
 export default function HomePage() {
   const headerLinks = [
-    { link: 'https://www.google.com', label: 'google' },
-    { link: 'https://duckduckgo.com', label: 'duckduckgo' },
-    { link: 'http://localhost:3000/hello', label: 'hello' },
+    { link: 'https://www.facebook.com/people/Vintage-Finds-Utah/100030320875882/', label: 'facebook' },
   ];
 
   return (
     <>
       <HeaderSearch links={headerLinks} />
-      <Welcome />
-      <ColorSchemeToggle />
     </>
   );
 }
