@@ -1,4 +1,5 @@
 import { HeaderSearch } from '../components/HeaderSearch/HeaderSearch';
+import { GridAsymmetrical } from '../components/Dashboard/GridAsymmetrical';
 
 export default function HomePage() {
   const headerLinks = [
@@ -8,6 +9,7 @@ export default function HomePage() {
   return (
     <>
       <HeaderSearch links={headerLinks} />
+      <GridAsymmetrical />
     </>
   );
 }
