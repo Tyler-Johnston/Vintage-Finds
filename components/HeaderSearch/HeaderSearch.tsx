@@ -63,7 +63,7 @@ export function HeaderSearch({ links }: HeaderSearchProps) {
   ));
 
   return (
-    <Header height={56} className={classes.header} mb={120}>
+    <Header height={56} className={classes.header} mb={30}>
       <div className={classes.inner}>
         <Group>
           <Burger opened={opened} onClick={toggle} size="sm" />
