@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {
     TextInput,
     Anchor,
@@ -21,12 +22,12 @@ import { PasswordStrength } from './PasswordStrength';
         <Text color="dimmed" size="sm" align="center" mt={5}>
           Already have an account?{' '}
           <Anchor size="sm" component="button">
-            Login
+            <Link href="/login">Login</Link>
           </Anchor>
         </Text>
 
         <Paper withBorder shadow="md" p={30} mt={30} radius="md">
-          <TextInput label="Email" placeholder="you@mantine.dev" required />
+          <TextInput label="Email" placeholder="example@vintagefinds.com" required />
           <PasswordStrength />
           <Button fullWidth mt="xl">
             Sign up

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import {
   TextInput,
   PasswordInput,
@@ -18,8 +19,10 @@ export function LoginTitle() {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // prevent default form submission
-    console.log('handled a submit');
+    event.preventDefault();
+    console.log('email: ', email);
+    console.log('pass: ', password);
+    console.log('remember me: ', rememberMe);
   };
 
   return (
@@ -33,7 +36,7 @@ export function LoginTitle() {
       <Text color="dimmed" size="sm" align="center" mt={5}>
         Do not have an account yet?{' '}
         <Anchor size="sm" component="button">
-          Create account
+          <Link href="/signup">Create account</Link>
         </Anchor>
       </Text>
 
@@ -41,7 +44,7 @@ export function LoginTitle() {
         <form onSubmit={handleSubmit}>
           <TextInput
             label="Email"
-            placeholder="you@mantine.dev"
+            placeholder="example@vintagefinds.com"
             required
             value={email}
             onChange={(event) => setEmail(event.target.value)}
@@ -61,10 +64,9 @@ export function LoginTitle() {
               onChange={(event) => setRememberMe(event.target.checked)}
             />
             <Anchor component="button" size="sm">
-              Forgot password?
+              <Link href="/forgotpassword">Forgot password?</Link>
             </Anchor>
           </Group>
-          {/* {error && <Text color="red">{error}</Text>} */}
           <Button type="submit" fullWidth mt="xl">
             Sign in
           </Button>
