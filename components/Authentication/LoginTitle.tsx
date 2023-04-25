@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import {
   TextInput,
   PasswordInput,
-  Checkbox,
   Anchor,
   Paper,
   Title,
@@ -19,7 +18,6 @@ import { auth } from '../../lib/firebase';
 export function LoginTitle() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [rememberMe, setRememberMe] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -63,11 +61,6 @@ export function LoginTitle() {
             onChange={(event) => setPassword(event.target.value)}
           />
           <Group position="apart" mt="lg">
-            <Checkbox
-              label="Remember me"
-              checked={rememberMe}
-              onChange={(event) => setRememberMe(event.target.checked)}
-            />
             <Anchor component="button" size="sm">
               <Link href="/forgotpassword">Forgot password?</Link>
             </Anchor>
