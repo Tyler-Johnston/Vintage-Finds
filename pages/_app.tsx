@@ -21,7 +21,6 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
 
   useEffect(() => {
     const cleanup = onAuthStateChanged(auth, (guest) => {
-      console.log('test: ', guest);
       setUser(guest as User);
     });
     return cleanup;
