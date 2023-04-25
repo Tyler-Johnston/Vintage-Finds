@@ -1,8 +1,8 @@
 // import { ChangeEvent } from 'react';
 // import { ref, uploadBytes } from 'firebase/storage';
-import { signOut, onAuthStateChanged } from 'firebase/auth';
-import { useState, useEffect } from 'react';
-import UserContext, { User } from '../context/user';
+import { useContext } from 'react';
+import { signOut } from 'firebase/auth';
+import UserContext from '../context/user';
 import { HeaderSearch } from '../components/HeaderSearch/HeaderSearch';
 import { auth } from '../lib/firebase';
 
@@ -11,26 +11,10 @@ import { auth } from '../lib/firebase';
 
 export default function HomePage() {
   // const [url, setUrl] = useState('');
-  const [user, setUser] = useState<User | null>(null);
+  const user = useContext(UserContext);
   const headerLinks = [
     { link: 'https://www.facebook.com/people/Vintage-Finds-Utah/100030320875882/', label: 'facebook' },
   ];
-
-  useEffect(() => {
-    const cleanup = onAuthStateChanged(auth, (guest) => {
-      console.log('test: ', guest);
-      setUser(guest as User);
-    });
-    return cleanup;
-  }, []);
-
-  // async function uploadFile(event: ChangeEvent<HTMLInputElement>) {
-  //   const target = event.target as HTMLInputElement;
-  //   const file = target.files?.[0];
-  //   const fileRef = ref(storage, `/userfiles/${file!.name || ''}`);
-  //   const snapshot = await uploadBytes(fileRef, file!);
-  //   console.log(snapshot);
-  // }
 
   return (
     <UserContext.Provider value={user}>
