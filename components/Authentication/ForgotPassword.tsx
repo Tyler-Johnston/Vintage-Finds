@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 import {
     createStyles,
     Paper,
@@ -38,6 +38,7 @@ import {
 
   export function ForgotPassword() {
     const { classes } = useStyles();
+    const router = useRouter();
 
     return (
       <Container size={460} my={30}>
@@ -55,7 +56,7 @@ import {
               <Center inline>
                 <IconArrowLeft size={rem(12)} stroke={1.5} />
                 <Box ml={5}>
-                  <Link href="/login">Back to the login page</Link>
+                  <Text onClick={() => router.push('/login')}> Back to the login page</Text>
                 </Box>
               </Center>
             </Anchor>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import {
   TextInput,
   PasswordInput,
@@ -12,17 +13,22 @@ import {
   Group,
   Button,
 } from '@mantine/core';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../lib/firebase';
 
 export function LoginTitle() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log('email: ', email);
-    console.log('pass: ', password);
-    console.log('remember me: ', rememberMe);
+    signInWithEmailAndPassword(auth, email, password)
+    .then(({ user }) => {
+      console.log(user);
+      router.push('/');
+    });
   };
 
   return (
