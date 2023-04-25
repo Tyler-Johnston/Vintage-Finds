@@ -2,6 +2,7 @@ import { createStyles, Header, Autocomplete, Group, Burger, rem } from '@mantine
 import { useDisclosure } from '@mantine/hooks';
 import { IconSearch } from '@tabler/icons-react';
 import { MantineLogo } from '@mantine/ds';
+import { ColorSchemeToggle } from './ColorSchemeToggle';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -80,6 +81,7 @@ export function HeaderSearch({ links }: HeaderSearchProps) {
             icon={<IconSearch size="1rem" stroke={1.5} />}
             data={['React', 'Angular', 'Vue', 'Next.js', 'Riot.js', 'Svelte', 'Blitz.js']}
           />
+          <ColorSchemeToggle />
         </Group>
       </div>
     </Header>

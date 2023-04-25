@@ -3,7 +3,7 @@
 import { useContext } from 'react';
 import { signOut } from 'firebase/auth';
 import UserContext from '../context/user';
-import { HeaderSearch } from '../components/HeaderSearch/HeaderSearch';
+import { HeaderSearch } from '../components/Header/HeaderSearch';
 import { auth } from '../lib/firebase';
 
 // import { storage } from '../lib/firebase';
@@ -17,15 +17,16 @@ export default function HomePage() {
   ];
 
   return (
-    <UserContext.Provider value={user}>
+    <>
       <HeaderSearch links={headerLinks} />
       <h1>vintage finds</h1>
+      {user ? user.email : 'not logged in'}
       <button type="button" onClick={() => signOut(auth)}>Sign out</button>
       {/* <input type="file" onChange={uploadFile} /> */}
       {/* {url && (
         <img src={url} alt='my image' />
       )} */}
       {/* <GridDashboard /> */}
-    </UserContext.Provider>
+    </>
   );
 }

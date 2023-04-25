@@ -25,8 +25,7 @@ export function LoginTitle() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-    .then(({ user }) => {
-      console.log(user);
+    .then(() => {
       router.push('/');
     });
   };
