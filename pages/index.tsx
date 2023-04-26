@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import UserContext from '../context/user';
 import { HeaderSearch } from '../components/Header/HeaderSearch';
-import GridDashboard from '../components/Dashboard/GridDashboard';
+import GridDashboard from '../components/Data/GridDashboard';
 
 export default function HomePage() {
   let headerLinks = [
