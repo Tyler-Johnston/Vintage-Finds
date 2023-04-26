@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { ref, get, child } from 'firebase/database';
 import UserContext from '../context/user';
 import { HeaderSearch } from '../components/Header/HeaderSearch';
@@ -33,11 +33,8 @@ export default function HomePage() {
     const dbRef = ref(db);
     get(child(dbRef, 'antiques/')).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
-        console.log(typeof snapshot.val());
-        const arr = Object.values(snapshot.val()) as Antique[];
-        console.log('arr: ', arr);
-        setAntiques(arr);
+        const data = Object.values(snapshot.val()) as Antique[];
+        setAntiques(data);
       } else {
         console.log('No data available');
       }
@@ -46,13 +43,16 @@ export default function HomePage() {
     });
   }
 
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <>
       <HeaderSearch links={headerLinks} />
       <h1>vintage finds</h1>
       {user ? user.email : 'not logged in'}
       <br />
-      <button type="button" onClick={getData}>import from db</button>
       {antiques.length > 0 ? antiques.map((antique: Antique) => (
         <div key={antique.id}>
           <p>{antique.name}</p>
@@ -60,7 +60,7 @@ export default function HomePage() {
           <p>Price: {antique.price}</p>
           <p>{antique.sale ? 'on sale' : ''}</p>
         </div>
-      )) : 'nothing to show'}
+      )) : ''}
     </>
   );
 }
