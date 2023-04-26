@@ -1,5 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { ref, get, child } from 'firebase/database';
+import Link from 'next/link';
+import { Grid, Container } from '@mantine/core';
 import UserContext from '../context/user';
 import { HeaderSearch } from '../components/Header/HeaderSearch';
 import { db } from '../lib/firebase';
@@ -42,6 +44,10 @@ export default function HomePage() {
       console.error(error);
     });
   }
+  function generateSlug(name: string, id: string) {
+    const slug = name.toLowerCase().replace(/\s+/g, '-');
+    return `${slug}-${id}`;
+  }
 
   useEffect(() => {
     getData();
@@ -53,14 +59,22 @@ export default function HomePage() {
       <h1>vintage finds</h1>
       {user ? user.email : 'not logged in'}
       <br />
-      {antiques.length > 0 ? antiques.map((antique: Antique) => (
-        <div key={antique.id}>
-          <p>{antique.name}</p>
-          <p>{antique.description}</p>
-          <p>Price: {antique.price}</p>
-          <p>{antique.sale ? 'on sale' : ''}</p>
-        </div>
-      )) : ''}
+      {antiques.length > 0 ? (
+      <Grid>
+        {antiques.map((antique: Antique) => (
+          <Grid.Col key={antique.id} span={4}>
+            <Container style={{ backgroundColor: '#252525' }}>
+              <Link href={`/${generateSlug(antique.name, antique.id)}`}>{antique.name}</Link>
+              <p>{antique.description}</p>
+              <p>Price: {antique.price}</p>
+              <p>{antique.sale ? 'on sale' : ''}</p>
+            </Container>
+          </Grid.Col>
+        ))}
+      </Grid>
+        ) : (
+          ''
+        )}
     </>
   );
 }
