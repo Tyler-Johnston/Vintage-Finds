@@ -1,19 +1,56 @@
-import { Grid } from '@mantine/core';
+import { useState, useEffect } from 'react';
+import { ref, get, child } from 'firebase/database';
+import { Grid, Container, useMantineTheme } from '@mantine/core';
+import Link from 'next/link';
+import { Antique, isAdmin } from '../../dto/antique';
+import { db } from '../../lib/firebase';
 
-export function GridDashboard() {
+export default function GridDashboard(props: isAdmin) {
+  const [antiques, setAntiques] = useState<Antique[]>([]);
+  const theme = useMantineTheme();
 
-  interface Data {
-    id: number
-    name: string
+  function generateSlug(name: string, id: string) {
+    const slug = name.toLowerCase().replace(/\s+/g, '-');
+    return `${slug}-${id}`;
   }
 
-  return (
+  function getData() {
+    const dbRef = ref(db);
+    get(child(dbRef, 'antiques/')).then((snapshot) => {
+      if (snapshot.exists()) {
+        const data = Object.values(snapshot.val()) as Antique[];
+        setAntiques(data);
+      } else {
+        console.log('No data available');
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
 
-    <p>test</p>
-    // <Grid>
-    //   {/* <Grid.Col style={{ backgroundColor: 'blue' }} span={4}>1</Grid.Col>
-    //   <Grid.Col style={{ backgroundColor: 'green' }} span={4}>2</Grid.Col>
-    //   <Grid.Col style={{ backgroundColor: 'red' }} span={4}>3</Grid.Col> */}
-    // </Grid>
-  );
+  useEffect(() => {
+    getData();
+  }, []);
+
+    return (
+        <>
+          {antiques.length > 0 ? (
+          <Grid>
+            {antiques.map((antique: Antique) => (
+              <Grid.Col key={antique.id} span={4}>
+                <Container style={{ backgroundColor: theme.colorScheme === 'light' ? '#e9ecef' : '#252525' }}>
+                  <Link href={`/antiques/${generateSlug(antique.name, antique.id)}`}>{antique.name}</Link>
+                  <p>{antique.description}</p>
+                  <p>Price: {antique.price}</p>
+                  <p>{antique.sale ? 'on sale' : ''}</p>
+                  {props.admin ? 'yes admin' : 'not admin'}
+                </Container>
+              </Grid.Col>
+            ))}
+          </Grid>
+            ) : (
+              ''
+            )}
+        </>
+    );
 }
