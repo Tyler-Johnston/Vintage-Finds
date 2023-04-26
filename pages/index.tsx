@@ -1,15 +1,24 @@
-// import { ChangeEvent } from 'react';
 // import { ref, uploadBytes } from 'firebase/storage';
-import { useContext } from 'react';
-// import { signOut } from 'firebase/auth';
+import { useState, useContext } from 'react';
+import { ref, get, child } from 'firebase/database';
 import UserContext from '../context/user';
 import { HeaderSearch } from '../components/Header/HeaderSearch';
-// import { auth } from '../lib/firebase';
+import { db } from '../lib/firebase';
 
-// import { storage } from '../lib/firebase';
 // import { GridDashboard } from '../components/Dashboard/GridDashboard';
 
+interface Antique {
+  id: string;
+  name: string;
+  description: string;
+  condition: string;
+  price: number;
+  sale: boolean;
+}
+
 export default function HomePage() {
+  const [antiques, setAntiques] = useState<Antique[]>([]);
+
   let headerLinks = [
     { link: 'https://www.facebook.com/people/Vintage-Finds-Utah/100030320875882/', label: 'facebook page' },
     { link: 'http://localhost:3000/signup', label: 'sign up' },
@@ -23,17 +32,38 @@ export default function HomePage() {
     headerLinks = headerLinks.filter(item => item.label !== 'sign up');
   }
 
+  function getData() {
+    const dbRef = ref(db);
+    get(child(dbRef, 'antiques/')).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(snapshot.val());
+        console.log(typeof snapshot.val());
+        const arr = Object.values(snapshot.val()) as Antique[];
+        console.log('arr: ', arr);
+        setAntiques(arr);
+      } else {
+        console.log('No data available');
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
   return (
     <>
       <HeaderSearch links={headerLinks} />
       <h1>vintage finds</h1>
       {user ? user.email : 'not logged in'}
-      {/* <button type="button" onClick={() => signOut(auth)}>Sign out</button> */}
-      {/* <input type="file" onChange={uploadFile} /> */}
-      {/* {url && (
-        <img src={url} alt='my image' />
-      )} */}
-      {/* <GridDashboard /> */}
+      <br />
+      <button type="button" onClick={getData}>import from db</button>
+      {antiques.length > 0 ? antiques.map((antique: Antique) => (
+        <div key={antique.id}>
+          <p>{antique.name}</p>
+          <p>{antique.description}</p>
+          <p>Price: {antique.price}</p>
+          <p>{antique.sale ? 'on sale' : ''}</p>
+        </div>
+      )) : 'nothing to show'}
     </>
   );
 }
