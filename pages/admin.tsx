@@ -45,6 +45,13 @@ export default function Admin() {
         console.log(`New antique with key ${newAntiqueKey} has been added.`);
       }
 
+      function checkInputs() {
+        if (name === '' || condition === '' || description === '' || Number.isNaN(price)) {
+            return false;
+        }
+        return true;
+      }
+
     useEffect(() => {
         authorize();
     }, [user]);
@@ -54,7 +61,6 @@ export default function Admin() {
             {authorized ? (
                 <div>
                     <h1>Hello, {user?.email}</h1>
-                    {/* <form> */}
                         <TextInput
                           placeholder="Vintage Coca-Cola sign"
                           label="Antique Name"
@@ -101,10 +107,9 @@ export default function Admin() {
                           checked={sale}
                           onChange={(e) => setSale(e.target.checked)}
                         />
-                        <Button type="button" onClick={writeUserData}>
+                        <Button type="button" onClick={() => checkInputs() ? writeUserData() : console.log('invalid')}>
                             Submit
                         </Button>
-                    {/* </form> */}
                 </div>
             ) : (
                 <div>
