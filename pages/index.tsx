@@ -1,11 +1,8 @@
-// import { ref, uploadBytes } from 'firebase/storage';
 import { useState, useContext } from 'react';
 import { ref, get, child } from 'firebase/database';
 import UserContext from '../context/user';
 import { HeaderSearch } from '../components/Header/HeaderSearch';
 import { db } from '../lib/firebase';
-
-// import { GridDashboard } from '../components/Dashboard/GridDashboard';
 
 interface Antique {
   id: string;
