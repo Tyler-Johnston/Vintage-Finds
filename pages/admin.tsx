@@ -10,6 +10,7 @@ import {
  import UserContext from '../context/user';
  import { ErrorTitle } from '../components/Error/Error';
  import { db } from '../lib/firebase';
+import GridDashboard from '../components/Dashboard/GridDashboard';
 
 export default function Admin() {
     const user = useContext(UserContext);
@@ -111,6 +112,7 @@ export default function Admin() {
                         Submit
                      </Button>
                      {error}
+                     <GridDashboard admin />
                 </div>
             ) : (
                 <div>

@@ -32,6 +32,10 @@ export default function GridDashboard(props: isAdmin) {
     getData();
   }, []);
 
+  useEffect(() => {
+    getData();
+  }, [antiques]);
+
     return (
         <>
           {antiques.length > 0 ? (
@@ -43,6 +47,7 @@ export default function GridDashboard(props: isAdmin) {
                   <p>{antique.description}</p>
                   <p>Price: {antique.price}</p>
                   <p>{antique.sale ? 'on sale' : ''}</p>
+                  <p>{antique.condition}</p>
                   {props.admin ? 'yes admin' : 'not admin'}
                 </Container>
               </Grid.Col>
