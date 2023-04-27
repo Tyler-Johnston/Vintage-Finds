@@ -6,12 +6,14 @@ import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core
 import { Notifications } from '@mantine/notifications';
 import { onAuthStateChanged } from 'firebase/auth';
 import UserContext, { User } from '../context/user';
+import LocationContext, { Location } from '../context/location';
 import { auth } from '../lib/firebase';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
   const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
   const [user, setUser] = useState<User | null>(null);
+  const [position, setPosition] = useState<Location | null>(null);
 
   const toggleColorScheme = (value?: ColorScheme) => {
     const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
@@ -26,21 +28,38 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
     return cleanup;
   }, []);
 
-  return (
-    <UserContext.Provider value={user}>
-      <Head>
-        <title>Vintage Finds</title>
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-      </Head>
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          setPosition({
+            latitude: pos.coords.latitude,
+            longitude: pos.coords.longitude,
+          });
+        },
+        (err) => console.error(err),
+        { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+      );
+    }
+  }, []);
 
-      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-        <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-          <Component {...pageProps} />
-          <Notifications />
-        </MantineProvider>
-      </ColorSchemeProvider>
-    </UserContext.Provider>
+  return (
+    <LocationContext.Provider value={position}>
+      <UserContext.Provider value={user}>
+        <Head>
+          <title>Vintage Finds</title>
+          <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+          <link rel="shortcut icon" href="/favicon.ico" />
+        </Head>
+
+        <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+          <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
+            <Component {...pageProps} />
+            <Notifications />
+          </MantineProvider>
+        </ColorSchemeProvider>
+      </UserContext.Provider>
+    </LocationContext.Provider>
   );
 }
 
