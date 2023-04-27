@@ -9,7 +9,7 @@ export default function Admin() {
     const [authorized, setAuthorized] = useState(false);
 
     function authorize() {
-        if (user && user.uid === 'lFvS2ds2sNPY9lb1fG1BMMDaMqp1') {
+        if (user && user.uid === process.env.NEXT_PUBLIC_REACT_APP_ADMIN_UID) {
             setAuthorized(true);
         }
     }

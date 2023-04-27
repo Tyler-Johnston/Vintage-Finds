@@ -5,7 +5,6 @@ import GridDashboard from '../components/Data/GridDashboard';
 
 export default function HomePage() {
   let headerLinks = [
-    { link: 'https://www.facebook.com/people/Vintage-Finds-Utah/100030320875882/', label: 'facebook page' },
     { link: 'https://vintage-finds.vercel.app/signup', label: 'sign up' },
     { link: 'https://vintage-finds.vercel.app/login', label: 'login' },
   ];
