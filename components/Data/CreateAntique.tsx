@@ -12,24 +12,26 @@ import { db, storage } from '../../lib/firebase';
 
 export default function CreateAntique() {
     const [name, setName] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
     const [description, setDescription] = useState('');
     const [condition, setCondition] = useState('');
     const [price, setPrice] = useState(20);
     const [error, setError] = useState('');
     const [image, setImage] = useState<File | null>(null);
+    // const [imageUrl, setImageUrl] = useState('');
 
     async function uploadImage(id: string) {
       if (image) {
         const fileRef = storageRef(storage, `antiqueimages/${id}`);
-        await uploadBytes(fileRef, image);
+        const snapshot = await uploadBytes(fileRef, image);
+        console.log('snapshot: ', snapshot);
         const downloadUrl = await getDownloadURL(storageRef(storage, `antiqueimages/${id}`));
-        setImageUrl(downloadUrl);
+        return downloadUrl;
       }
+      return 'no image!';
     }
 
     function checkInputs() {
-        if (name === '' || condition === '' || description === '' || Number.isNaN(price)) {
+        if (name === '' || condition === '' || description === '' || Number.isNaN(price) || image === null) {
             setError('You are missing a required field');
             return false;
         // eslint-disable-next-line no-else-return
@@ -40,22 +42,34 @@ export default function CreateAntique() {
       }
 
     function clearInputs() {
+        console.log('clearing the inputs');
         setName('');
         setDescription('');
         setPrice(20);
         setCondition('');
+        setImage(null);
+        // setImageUrl('');
       }
 
     async function writeUserData() {
         const antiquesRef = databaseRef(db, 'antiques/');
         const newAntiqueRef = push(antiquesRef);
         const newAntiqueKey = newAntiqueRef.key;
-        uploadImage(newAntiqueKey!);
+        // if (newAntiqueKey) {
+        //   const t = await uploadImage(newAntiqueKey);
+        //   console.log(' in wrtie user data - new antique key not null!', newAntiqueKey);
+        //   console.log('t: ', t);
+        // } else {
+        //   console.log(' i guess, in write user data, newanitquekey was null?');
+        // }
+
+        const url = await uploadImage(newAntiqueKey!);
+        console.log(' here is the url in the writeUsERDATA: ', url);
 
         await set(newAntiqueRef, {
           id: newAntiqueKey,
           name,
-          imageUrl,
+          url,
           description,
           condition,
           price,

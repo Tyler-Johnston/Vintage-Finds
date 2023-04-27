@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { ref, get, child } from 'firebase/database';
 import { Grid, Container, useMantineTheme } from '@mantine/core';
 import Link from 'next/link';
+// import Image from 'next/image';
 import { Antique, isAdmin } from '../../dto/antique';
 import { db } from '../../lib/firebase';
 
@@ -44,6 +45,9 @@ export default function GridDashboard(props: isAdmin) {
               <Grid.Col key={antique.id} span={4}>
                 <Container style={{ backgroundColor: theme.colorScheme === 'light' ? '#e9ecef' : '#252525' }}>
                   <Link href={`/antiques/${generateSlug(antique.name, antique.id)}`}>{antique.name}</Link>
+                  {antique.url && (
+                    <img src={antique.url} alt="my image" width={200} height={200} />
+                  )}
                   <p>{antique.description}</p>
                   <p>Price: {antique.price}</p>
                   <p>{antique.sale ? 'on sale' : ''}</p>
