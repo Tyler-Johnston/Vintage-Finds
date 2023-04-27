@@ -9,6 +9,7 @@ import { db } from '../../lib/firebase';
 export default function GridDashboard(props: isAdmin) {
   const [antiques, setAntiques] = useState<Antique[]>([]);
   const theme = useMantineTheme();
+  const [isMobile, setIsMobile] = useState(false);
 
   function generateSlug(name: string, id: string) {
     const slug = name.toLowerCase().replace(/\s+/g, '-');
@@ -31,6 +32,8 @@ export default function GridDashboard(props: isAdmin) {
 
   useEffect(() => {
     getAntiqueData();
+    const { userAgent } = navigator;
+    setIsMobile(/iPhone|iPad|iPod|Android/i.test(userAgent));
   }, []);
 
   useEffect(() => {
@@ -42,13 +45,13 @@ export default function GridDashboard(props: isAdmin) {
           {antiques.length > 0 ? (
           <Grid>
             {antiques.map((antique: Antique) => (
-              <Grid.Col key={antique.id} span={4}>
+              <Grid.Col key={antique.id} span={isMobile ? 6 : 4}>
                 <Container style={{ backgroundColor: theme.colorScheme === 'light' ? '#e9ecef' : '#252525' }}>
                   <h3>{antique.name}</h3>
                   {antique.url && (
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                       <Link href={`/antiques/${generateSlug(antique.name, antique.id)}`}>
-                        <img src={antique.url} alt="antique" width={400} height={400} />
+                        <img src={antique.url} alt="antique" width={isMobile ? 100 : 300} height={isMobile ? 100 : 300} />
                       </Link>
                     </div>
                   )}
