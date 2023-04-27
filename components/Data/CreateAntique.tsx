@@ -17,13 +17,11 @@ export default function CreateAntique() {
     const [price, setPrice] = useState(20);
     const [error, setError] = useState('');
     const [image, setImage] = useState<File | null>(null);
-    // const [imageUrl, setImageUrl] = useState('');
 
     async function uploadImage(id: string) {
       if (image) {
         const fileRef = storageRef(storage, `antiqueimages/${id}`);
-        const snapshot = await uploadBytes(fileRef, image);
-        console.log('snapshot: ', snapshot);
+        await uploadBytes(fileRef, image);
         const downloadUrl = await getDownloadURL(storageRef(storage, `antiqueimages/${id}`));
         return downloadUrl;
       }
@@ -42,29 +40,18 @@ export default function CreateAntique() {
       }
 
     function clearInputs() {
-        console.log('clearing the inputs');
         setName('');
         setDescription('');
         setPrice(20);
         setCondition('');
         setImage(null);
-        // setImageUrl('');
       }
 
     async function writeUserData() {
         const antiquesRef = databaseRef(db, 'antiques/');
         const newAntiqueRef = push(antiquesRef);
         const newAntiqueKey = newAntiqueRef.key;
-        // if (newAntiqueKey) {
-        //   const t = await uploadImage(newAntiqueKey);
-        //   console.log(' in wrtie user data - new antique key not null!', newAntiqueKey);
-        //   console.log('t: ', t);
-        // } else {
-        //   console.log(' i guess, in write user data, newanitquekey was null?');
-        // }
-
         const url = await uploadImage(newAntiqueKey!);
-        console.log(' here is the url in the writeUsERDATA: ', url);
 
         await set(newAntiqueRef, {
           id: newAntiqueKey,

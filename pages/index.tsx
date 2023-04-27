@@ -20,9 +20,6 @@ export default function HomePage() {
   return (
     <>
       <HeaderSearch links={headerLinks} />
-      <h1>vintage finds</h1>
-      {user ? user.email : 'not logged in'}
-      <br />
       <GridDashboard admin={false} />
     </>
   );
