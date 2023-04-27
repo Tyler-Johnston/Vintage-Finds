@@ -11,10 +11,10 @@ export default function GridDashboard(props: isAdmin) {
 
   function generateSlug(name: string, id: string) {
     const slug = name.toLowerCase().replace(/\s+/g, '-');
-    return `${slug}-${id}`;
+    return `${slug}.${id}`;
   }
 
-  function getData() {
+  function getAntiqueData() {
     const dbRef = ref(db);
     get(child(dbRef, 'antiques/')).then((snapshot) => {
       if (snapshot.exists()) {
@@ -29,11 +29,11 @@ export default function GridDashboard(props: isAdmin) {
   }
 
   useEffect(() => {
-    getData();
+    getAntiqueData();
   }, []);
 
   useEffect(() => {
-    getData();
+    getAntiqueData();
   }, [antiques]);
 
     return (
@@ -46,7 +46,6 @@ export default function GridDashboard(props: isAdmin) {
                   <h3>{antique.name}</h3>
                   {antique.url && (
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
-                      {/* <img src={antique.url} alt="antique" width={400} height={400} /> */}
                       <Link href={`/antiques/${generateSlug(antique.name, antique.id)}`}>
                         <img src={antique.url} alt="antique" width={400} height={400} />
                       </Link>
