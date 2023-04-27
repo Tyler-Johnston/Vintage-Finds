@@ -6,12 +6,10 @@ import { Antique } from '../../dto/antique';
 
 export default function AntiqueTest() {
     const router = useRouter();
-    const [antiqueId, setAntiqueId] = useState('');
     const [antique, setAntique] = useState<Antique>();
 
     async function getAntiqueId() {
         const { id } = await router.query;
-        console.log('in getId pram: ', id);
         const parameters = id as string;
         const parametersArray = parameters.split('.');
         return parametersArray[1];
@@ -20,8 +18,6 @@ export default function AntiqueTest() {
     async function getAntiqueData() {
         const dbRef = ref(db);
         const id = await getAntiqueId();
-        console.log('id in datafun: ', id);
-        setAntiqueId(id);
         try {
           const snapshot = await get(child(dbRef, `antiques/${id}`));
           if (snapshot.exists()) {
@@ -42,7 +38,6 @@ export default function AntiqueTest() {
 
     return (
         <>
-            {antiqueId}
             {antique ? (
                 <div>
                     <p>{antique.name}</p>

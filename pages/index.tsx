@@ -6,12 +6,12 @@ import GridDashboard from '../components/Data/GridDashboard';
 export default function HomePage() {
   let headerLinks = [
     { link: 'https://www.facebook.com/people/Vintage-Finds-Utah/100030320875882/', label: 'facebook page' },
-    { link: 'http://localhost:3000/signup', label: 'sign up' },
-    { link: 'http://localhost:3000/login', label: 'login' },
+    { link: 'https://vintage-finds.vercel.app/signup', label: 'sign up' },
+    { link: 'https://vintage-finds.vercel.app/login', label: 'login' },
   ];
   const user = useContext(UserContext);
   if (user) {
-    const signup = { link: 'http://localhost:3000/logout', label: 'sign out' };
+    const signup = { link: 'https://vintage-finds.vercel.app/logout', label: 'sign out' };
     headerLinks.push(signup);
     headerLinks = headerLinks.filter(item => item.label !== 'login');
     headerLinks = headerLinks.filter(item => item.label !== 'sign up');
