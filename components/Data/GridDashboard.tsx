@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { ref, get, child } from 'firebase/database';
 import { Grid, Container, useMantineTheme } from '@mantine/core';
 import Link from 'next/link';
-import { Antique, isAdmin } from '../../dto/antique';
+import { Antique } from '../../dto/antique';
+import { isAdmin } from '../../dto/isAdmin';
 import { db } from '../../lib/firebase';
 
 export default function GridDashboard(props: isAdmin) {
@@ -51,11 +52,11 @@ export default function GridDashboard(props: isAdmin) {
                       </Link>
                     </div>
                   )}
-                  <p>{antique.description}</p>
+                  <p>Description: {antique.description}</p>
                   <p>Price: {antique.price}</p>
                   <p>{antique.sale ? 'on sale' : ''}</p>
-                  <p>{antique.condition}</p>
-                  {props.admin ? 'yes admin' : 'not admin'}
+                  <p>Condition: {antique.condition}</p>
+                  {props.admin ? 'yes admin' : ''}
                 </Container>
               </Grid.Col>
             ))}

@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
- import UserContext from '../context/user';
- import { ErrorTitle } from '../components/Error/Error';
+import UserContext from '../context/user';
+import { ErrorTitle } from '../components/Error/Error';
 import GridDashboard from '../components/Data/GridDashboard';
 import CreateAntique from '../components/Data/CreateAntique';
 

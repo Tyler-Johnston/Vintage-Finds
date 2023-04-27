@@ -7,7 +7,3 @@ export interface Antique {
     price: number;
     sale: boolean;
   }
-
-export interface isAdmin {
-    admin: boolean;
-  }

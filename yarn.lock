@@ -3669,6 +3669,11 @@
     "@types/mime" "*"
     "@types/node" "*"
 
+"@types/shippo@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@types/shippo/-/shippo-1.7.1.tgz#50d54be102d027e37d36f3c336b35032d9f0861b"
+  integrity sha512-d73w5MJ/kLGY4bw5OqPf8vufTKgQ0JciAnRa91isGTMrbtKtQC3BM3NBKh/I0/0bLtnuJZAQbZ0m5wVQovasqA==
+
 "@types/source-list-map@*":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@types/source-list-map/-/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
@@ -12022,6 +12027,11 @@ shebang-regex@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
   integrity sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==
+
+shippo@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/shippo/-/shippo-1.7.1.tgz#4f383ec7f4575de8a28d2a5e0e039fdaae3028ba"
+  integrity sha512-kALIuHGjGhSAq2Yvz9sLewxgJkC82/bsUqjAXOT9jfW0T1LPxRouwFkBUBsgYe68qlbyrMjfpIbtg5Mx7t4SMw==
 
 side-channel@^1.0.4:
   version "1.0.4"
