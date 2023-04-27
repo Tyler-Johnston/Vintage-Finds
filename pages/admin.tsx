@@ -9,12 +9,15 @@ export default function Admin() {
     const [authorized, setAuthorized] = useState(false);
 
     function authorize() {
+        console.log('env var: ', process.env.NEXT_PUBLIC_REACT_APP_ADMIN_UID);
         if (user && user.uid === process.env.NEXT_PUBLIC_REACT_APP_ADMIN_UID) {
+            console.log('got past the if statment check for env var');
             setAuthorized(true);
         }
     }
 
     useEffect(() => {
+        console.log('in use effect in admin');
         authorize();
     }, [user]);
 
