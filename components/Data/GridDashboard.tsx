@@ -36,10 +36,6 @@ export default function GridDashboard(props: isAdmin) {
     setIsMobile(/iPhone|iPad|iPod|Android/i.test(userAgent));
   }, []);
 
-  useEffect(() => {
-    getAntiqueData();
-  }, [antiques]);
-
     return (
         <>
           {antiques.length > 0 ? (
