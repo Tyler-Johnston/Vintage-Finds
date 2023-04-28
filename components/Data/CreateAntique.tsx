@@ -17,6 +17,10 @@ export default function CreateAntique() {
     const [price, setPrice] = useState(20);
     const [error, setError] = useState('');
     const [image, setImage] = useState<File | null>(null);
+    const [length, setLength] = useState(5);
+    const [width, setWidth] = useState(5);
+    const [height, setHeight] = useState(5);
+    const [weight, setWeight] = useState(5);
 
     async function uploadImage(id: string) {
       if (image) {
@@ -29,7 +33,7 @@ export default function CreateAntique() {
     }
 
     function checkInputs() {
-        if (name === '' || condition === '' || description === '' || Number.isNaN(price) || image === null) {
+        if (name === '' || condition === '' || description === '' || Number.isNaN(price) || image === null || Number.isNaN(length) || Number.isNaN(width) || Number.isNaN(height) || Number.isNaN(weight)) {
             setError('You are missing a required field');
             return false;
         }
@@ -40,7 +44,6 @@ export default function CreateAntique() {
     function clearInputs() {
         setName('');
         setDescription('');
-        setPrice(20);
         setCondition('');
         setImage(null);
       }
@@ -60,8 +63,13 @@ export default function CreateAntique() {
           condition,
           price,
           sale: false,
+          length,
+          width,
+          height,
+          weight,
         });
       } catch (err) {
+        console.log('error: ', err);
         setError('You are not authorized to write to the database');
       }
       clearInputs();
@@ -113,6 +121,66 @@ export default function CreateAntique() {
                 setPrice(val);
             } else {
                 setPrice(parseFloat(val));
+            }
+            }}
+          />
+          <NumberInput
+            defaultValue={5}
+            placeholder="5"
+            label="Length (in)"
+            withAsterisk
+            required
+            value={length}
+            onChange={(val: string | number) => {
+            if (typeof val === 'number') {
+                setLength(val);
+            } else {
+                setLength(parseFloat(val));
+            }
+            }}
+          />
+          <NumberInput
+            defaultValue={5}
+            placeholder="5"
+            label="Width (in)"
+            withAsterisk
+            required
+            value={width}
+            onChange={(val: string | number) => {
+            if (typeof val === 'number') {
+                setWidth(val);
+            } else {
+                setWidth(parseFloat(val));
+            }
+            }}
+          />
+          <NumberInput
+            defaultValue={5}
+            placeholder="5"
+            label="Height (in)"
+            withAsterisk
+            required
+            value={height}
+            onChange={(val: string | number) => {
+            if (typeof val === 'number') {
+                setHeight(val);
+            } else {
+                setHeight(parseFloat(val));
+            }
+            }}
+          />
+          <NumberInput
+            defaultValue={5}
+            placeholder="5"
+            label="Weight (lb)"
+            withAsterisk
+            required
+            value={weight}
+            onChange={(val: string | number) => {
+            if (typeof val === 'number') {
+                setWeight(val);
+            } else {
+                setWeight(parseFloat(val));
             }
             }}
           />

@@ -85,6 +85,10 @@ export default function GridDashboard(props: isAdmin) {
                       price={antique.price}
                       url={antique.url}
                       sale={antique.sale}
+                      length={antique.length}
+                      width={antique.width}
+                      height={antique.height}
+                      weight={antique.weight}
                     />
                   ) : (
                     <div>
@@ -92,6 +96,9 @@ export default function GridDashboard(props: isAdmin) {
                       <p>Price: {antique.price}</p>
                       <p>{antique.sale ? 'on sale' : ''}</p>
                       <p>Condition: {antique.condition}</p>
+                      <p>length: {antique.length}</p>
+                      <p>weight: {antique.weight}</p>
+                      <p>width: {antique.width}</p>
                     </div>
                   )}
                 </Container>

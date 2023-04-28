@@ -71,6 +71,10 @@ export default function AntiqueTest() {
 
     function getShipmentInfo() {
         if (address) {
+            console.log('beglength ', antique?.length);
+            console.log('begwidth ', antique?.width);
+            console.log('begheight ', antique?.height);
+            console.log('begweight ', antique?.weight);
             const addressFrom = {
                 street1: address.road,
                 city: address.city,
@@ -86,11 +90,11 @@ export default function AntiqueTest() {
                 country: 'US',
               };
             const parcel = {
-                length: '5',
-                width: '5',
-                height: '5',
+                length: antique?.length,
+                width: antique?.width,
+                height: antique?.height,
                 distance_unit: 'in',
-                weight: '2',
+                weight: antique?.weight,
                 mass_unit: 'lb',
             };
             const shipment = {

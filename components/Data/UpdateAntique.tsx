@@ -18,6 +18,10 @@ export default function UpdateAntique(antique: Antique) {
     const [price, setPrice] = useState(antique.price);
     const [error, setError] = useState('');
     const [image, setImage] = useState<File | null>(null);
+    const [length, setLength] = useState(antique.length);
+    const [width, setWidth] = useState(antique.width);
+    const [height, setHeight] = useState(antique.height);
+    const [weight, setWeight] = useState(antique.weight);
 
     async function uploadImage() {
       if (image) {
@@ -44,8 +48,17 @@ export default function UpdateAntique(antique: Antique) {
 
         // if image = null, don't update the image. else, replace the image the new one the user uploads
         const dataToUpdate = image === null
-        ? { name, description, condition, price, sale: false }
-        : { name, url: await uploadImage(), description, condition, price, sale: false };
+        ? { name, description, condition, price, sale: false, length, width, height, weight }
+        : { name,
+           url: await uploadImage(),
+          description,
+          condition,
+          price,
+          sale: false,
+          length,
+          width,
+          height,
+          weight };
 
         await update(antiquesRef, dataToUpdate);
       } catch (err) {
@@ -110,6 +123,66 @@ export default function UpdateAntique(antique: Antique) {
                 setPrice(val);
             } else {
                 setPrice(parseFloat(val));
+            }
+            }}
+          />
+          <NumberInput
+            defaultValue={5}
+            placeholder="5"
+            label="Length (in)"
+            withAsterisk
+            required
+            value={length}
+            onChange={(val: string | number) => {
+            if (typeof val === 'number') {
+                setLength(val);
+            } else {
+                setLength(parseFloat(val));
+            }
+            }}
+          />
+          <NumberInput
+            defaultValue={5}
+            placeholder="5"
+            label="Width (in)"
+            withAsterisk
+            required
+            value={width}
+            onChange={(val: string | number) => {
+            if (typeof val === 'number') {
+                setWidth(val);
+            } else {
+                setWidth(parseFloat(val));
+            }
+            }}
+          />
+          <NumberInput
+            defaultValue={5}
+            placeholder="5"
+            label="Height (in)"
+            withAsterisk
+            required
+            value={height}
+            onChange={(val: string | number) => {
+            if (typeof val === 'number') {
+                setHeight(val);
+            } else {
+                setHeight(parseFloat(val));
+            }
+            }}
+          />
+          <NumberInput
+            defaultValue={5}
+            placeholder="5"
+            label="Weight (lb)"
+            withAsterisk
+            required
+            value={weight}
+            onChange={(val: string | number) => {
+            if (typeof val === 'number') {
+                setWeight(val);
+            } else {
+                setWeight(parseFloat(val));
             }
             }}
           />
