@@ -1,11 +1,11 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { ref, get, child } from 'firebase/database';
 import { db } from '../../../lib/firebase';
 import { Antique } from '../../../dto/antique';
 import { Shipment } from '../../../dto/shipment';
 import { Address } from '../../../dto/address';
-import LocationContext from '../../../context/location';
+import { Location } from '../../../dto/Location';
 import { ErrorTitle } from '../../../components/Error/Error';
 
 export default function AntiqueTest() {
@@ -13,10 +13,10 @@ export default function AntiqueTest() {
     const [antique, setAntique] = useState<Antique>();
     const [shipmentData, setShipmentData] = useState<Shipment | null>(null);
     const [address, setAddress] = useState<Address | null>(null);
+    const [location, setLocation] = useState<Location | null>(null);
 
     // eslint-disable-next-line global-require
     const shippo = require('shippo')(process.env.NEXT_PUBLIC_REACT_APP_SHIPPO_API_TOKEN);
-    const location = useContext(LocationContext);
 
     const CHEAPEST = 0;
     const BESTVALUE = 1;
@@ -46,7 +46,19 @@ export default function AntiqueTest() {
 
     useEffect(() => {
         getAntiqueData();
-    }, []);
+        if (typeof window !== 'undefined') {
+          navigator.geolocation.getCurrentPosition(
+            (pos) => {
+              setLocation({
+                latitude: pos.coords.latitude,
+                longitude: pos.coords.longitude,
+              });
+            },
+            (err) => console.error(err),
+            { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+          );
+        }
+      }, []);
 
     async function getReverseGeocode() {
         if (location) {
