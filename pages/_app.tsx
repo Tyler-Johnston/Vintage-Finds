@@ -16,23 +16,21 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const [user, setUser] = useState<User | null>(null);
   const [position, setPosition] = useState<Location | null>(null);
 
-  const headerLinks: any[] = [];
-  // if (typeof window !== undefined) {
-  //   headerLinks = [
-  //     { link: `${window.location.origin}/signup`, label: 'sign up' },
-  //     { link: `${window.location.origin}/login`, label: 'login' },
-  //   ];
-  //   if (user) {
-  //     const signup = { link: `${window.location.origin}/logout`, label: 'sign out' };
-  //     headerLinks.push(signup);
-  //     headerLinks = headerLinks.filter(item => item.label !== 'login');
-  //     headerLinks = headerLinks.filter(item => item.label !== 'sign up');
-  //     if (user.uid === process.env.NEXT_PUBLIC_REACT_APP_ADMIN_UID) {
-  //       const admin = { link: `${window.location.origin}/admin`, label: 'admin' };
-  //       headerLinks.push(admin);
-  //     }
-  //   }
-  // }
+  const backTrack = '';
+  let headerLinks = [
+      { link: `${backTrack}/signup`, label: 'sign up' },
+      { link: `${backTrack}/login`, label: 'login' },
+  ];
+  if (user) {
+    const signup = { link: `${backTrack}/logout`, label: 'sign out' };
+    headerLinks.push(signup);
+    headerLinks = headerLinks.filter(item => item.label !== 'login');
+    headerLinks = headerLinks.filter(item => item.label !== 'sign up');
+    if (user.uid === process.env.NEXT_PUBLIC_REACT_APP_ADMIN_UID) {
+      const admin = { link: `${backTrack}/admin`, label: 'admin' };
+      headerLinks.push(admin);
+    }
+    }
 
   const toggleColorScheme = (value?: ColorScheme) => {
     const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
