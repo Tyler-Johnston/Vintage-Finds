@@ -6,6 +6,7 @@ import { Antique } from '../../../dto/antique';
 import { Shipment } from '../../../dto/shipment';
 import { Address } from '../../../dto/address';
 import LocationContext from '../../../context/location';
+import { ErrorTitle } from '../../../components/Error/Error';
 
 export default function AntiqueTest() {
     const router = useRouter();
@@ -71,14 +72,14 @@ export default function AntiqueTest() {
 
     function getShipmentInfo() {
         if (address) {
-            const addressFrom = {
+            const addressTo = {
                 street1: address.road,
                 city: address.city,
                 state: address.state,
                 zip: address.postcode,
                 country: address.country,
             };
-            const addressTo = {
+            const addressFrom = {
                 street1: '1045 N 2000 W',
                 city: 'Springville',
                 state: 'UT',
@@ -132,7 +133,10 @@ export default function AntiqueTest() {
             )
             : (
                 <div>
-                    <p>antiques was null or something?</p>
+                    <ErrorTitle
+                      number={404}
+                      description="You may have mistyped the address, or the page has been moved to another URL."
+                    />
                 </div>
             )}
         </>
