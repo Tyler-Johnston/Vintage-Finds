@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ref as databaseRef, update } from 'firebase/database';
-import { ref as storageRef, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { ref as databaseRef, update, remove } from 'firebase/database';
+import { ref as storageRef, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import {
     TextInput,
     FileInput,
@@ -51,6 +51,18 @@ export default function UpdateAntique(antique: Antique) {
       } catch (err) {
         setError('You are not authorized to write to the database');
       }
+    }
+
+    async function deleteAntique() {
+        try {
+            const antiquesRef = databaseRef(db, `antiques/${antique.id}`);
+            await remove(antiquesRef);
+
+            const imageRef = storageRef(storage, `antiqueimages/${antique.id}`);
+            await deleteObject(imageRef);
+        } catch (err) {
+            setError('You are not authorized to delete from the database');
+        }
     }
 
     return (
@@ -106,7 +118,7 @@ export default function UpdateAntique(antique: Antique) {
               Update
           </Button>
 
-          <Button type="button">
+          <Button type="button" onClick={deleteAntique}>
               Delete
           </Button>
           </div>
