@@ -14,7 +14,7 @@ import { Antique } from '../../dto/antique';
 export default function UpdateAntique(antique: Antique) {
     const [name, setName] = useState(antique.name);
     const [description, setDescription] = useState(antique.description);
-    const [condition, setCondition] = useState(antique.description);
+    const [condition, setCondition] = useState(antique.condition);
     const [price, setPrice] = useState(antique.price);
     const [error, setError] = useState('');
     const [image, setImage] = useState<File | null>(null);
