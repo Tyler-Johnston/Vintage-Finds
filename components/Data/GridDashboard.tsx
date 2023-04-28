@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ref, get, child } from 'firebase/database';
+import { ref, get, child, onValue } from 'firebase/database';
 import { Grid, Container, useMantineTheme } from '@mantine/core';
 import Link from 'next/link';
 import { Antique } from '../../dto/antique';
@@ -10,6 +10,7 @@ export default function GridDashboard(props: isAdmin) {
   const [antiques, setAntiques] = useState<Antique[]>([]);
   const theme = useMantineTheme();
   const [isMobile, setIsMobile] = useState(false);
+  const [isDbUpdated, setIsDbUpdated] = useState(false);
 
   function generateSlug(name: string, id: string) {
     const slug = name.toLowerCase().replace(/\s+/g, '-');
@@ -28,13 +29,35 @@ export default function GridDashboard(props: isAdmin) {
     }).catch((error) => {
       console.error(error);
     });
+    setIsDbUpdated(false);
+  }
+
+  function listenForChanges() {
+    const dbRef = ref(db, 'antiques/');
+    onValue(dbRef, (snapshot) => {
+      if (snapshot.exists()) {
+        setIsDbUpdated(true);
+      } else {
+        console.log('No data available');
+      }
+    }, (error) => {
+      console.error(error);
+    });
   }
 
   useEffect(() => {
     getAntiqueData();
+    listenForChanges();
     const { userAgent } = navigator;
     setIsMobile(/iPhone|iPad|iPod|Android/i.test(userAgent));
   }, []);
+
+  useEffect(() => {
+    if (isDbUpdated) {
+      console.log('called the isDbUpdated use effect hook, and it is true');
+      getAntiqueData();
+    }
+  }, [isDbUpdated]);
 
     return (
         <>
