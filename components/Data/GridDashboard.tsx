@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Antique } from '../../dto/antique';
 import { isAdmin } from '../../dto/isAdmin';
 import { db } from '../../lib/firebase';
+import UpdateAntique from './UpdateAntique';
 
 export default function GridDashboard(props: isAdmin) {
   const [antiques, setAntiques] = useState<Antique[]>([]);
@@ -74,11 +75,24 @@ export default function GridDashboard(props: isAdmin) {
                       </Link>
                     </div>
                   )}
-                  <p>Description: {antique.description}</p>
-                  <p>Price: {antique.price}</p>
-                  <p>{antique.sale ? 'on sale' : ''}</p>
-                  <p>Condition: {antique.condition}</p>
-                  {props.admin ? 'yes admin' : ''}
+                  {props.admin ? (
+                    <UpdateAntique
+                      id={antique.id}
+                      name={antique.name}
+                      description={antique.description}
+                      condition={antique.condition}
+                      price={antique.price}
+                      url={antique.url}
+                      sale={antique.sale}
+                    />
+                  ) : (
+                    <div>
+                      <p>Description: {antique.description}</p>
+                      <p>Price: {antique.price}</p>
+                      <p>{antique.sale ? 'on sale' : ''}</p>
+                      <p>Condition: {antique.condition}</p>
+                    </div>
+                  )}
                 </Container>
               </Grid.Col>
             ))}
