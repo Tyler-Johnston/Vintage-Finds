@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import { ref, get, child } from 'firebase/database';
-import { db } from '../../lib/firebase';
-import { Antique } from '../../dto/antique';
-import { Shipment } from '../../dto/shipment';
-import { Address } from '../../dto/address';
-import LocationContext from '../../context/location';
+import { db } from '../../../lib/firebase';
+import { Antique } from '../../../dto/antique';
+import { Shipment } from '../../../dto/shipment';
+import { Address } from '../../../dto/address';
+import LocationContext from '../../../context/location';
 
 export default function AntiqueTest() {
     const router = useRouter();
@@ -23,8 +23,8 @@ export default function AntiqueTest() {
     async function getAntiqueId() {
         const { id } = await router.query;
         const parameters = id as string;
-        const parametersArray = parameters.split('.');
-        return parametersArray[1];
+        const index = parameters.lastIndexOf('/');
+        return parameters.substring(index + 1);
     }
 
     async function getAntiqueData() {
@@ -35,7 +35,6 @@ export default function AntiqueTest() {
           if (snapshot.exists()) {
             const data = snapshot.val() as Antique;
             setAntique(data);
-            console.log('data in datfunc: ', data);
           } else {
             console.log('No data available');
           }
@@ -148,7 +147,13 @@ export default function AntiqueTest() {
                     <p>best value: {shipmentData ? shipmentData.rates[BESTVALUE].amount : ''}</p>
                 </div>
             )
-                 : 'no'}
+                 : (
+                    <div>
+                        <p>antiques was null or something?</p>
+                        <p>antique data: {antique}</p>
+                        <p>antique id</p>
+                    </div>
+                 )}
         </>
     );
 }

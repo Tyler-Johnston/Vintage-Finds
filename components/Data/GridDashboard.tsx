@@ -14,8 +14,9 @@ export default function GridDashboard(props: isAdmin) {
   const [isDbUpdated, setIsDbUpdated] = useState(false);
 
   function generateSlug(name: string, id: string) {
-    const slug = name.toLowerCase().replace(/\s+/g, '-');
-    return `${slug}.${id}`;
+    const noSlashes = name.replace(/\//g, '').toLowerCase();
+    const slug = noSlashes.replace(/\s+/g, '-');
+    return `${slug}/${id}`;
   }
 
   function getAntiqueData() {
