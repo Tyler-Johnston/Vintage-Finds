@@ -81,7 +81,7 @@ export default function GridDashboard(props: isAdmin) {
                   ) : (
                     <div>
                       <p>Description: {antique.description}</p>
-                      <p>Price: {antique.price}</p>
+                      <p>Price: ${antique.price}</p>
                       <p>{antique.sale ? 'on sale' : ''}</p>
                       <p>Condition: {antique.condition}</p>
                     </div>

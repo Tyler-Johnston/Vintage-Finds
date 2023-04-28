@@ -1,5 +1,5 @@
-import { createStyles, Header, Autocomplete, Group, rem } from '@mantine/core';
-import { IconSearch } from '@tabler/icons-react';
+import { createStyles, Header, Group, rem } from '@mantine/core';
+import { useRouter } from 'next/router';
 import { ColorSchemeToggle } from './ColorSchemeToggle';
 
 const useStyles = createStyles((theme) => ({
@@ -43,12 +43,13 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-interface HeaderSearchProps {
+interface HeaderProps {
   links: { link: string; label: string }[];
 }
 
-export function HeaderSearch({ links }: HeaderSearchProps) {
+export function MyHeader({ links }: HeaderProps) {
   const { classes } = useStyles();
+  const router = useRouter();
 
   const items = links.map((link) => (
     <a
@@ -63,7 +64,7 @@ export function HeaderSearch({ links }: HeaderSearchProps) {
   return (
     <Header height={56} className={classes.header} mb={30}>
       <div className={classes.inner}>
-        <Group>
+        <Group onClick={() => router.push('/')}>
           <p>Vintage Finds</p>
         </Group>
 
@@ -71,12 +72,6 @@ export function HeaderSearch({ links }: HeaderSearchProps) {
           <Group ml={50} spacing={5} className={classes.links}>
             {items}
           </Group>
-          <Autocomplete
-            className={classes.search}
-            placeholder="Search"
-            icon={<IconSearch size="1rem" stroke={1.5} />}
-            data={['React', 'Angular', 'Vue', 'Next.js', 'Riot.js', 'Svelte', 'Blitz.js']}
-          />
           <ColorSchemeToggle />
         </Group>
       </div>

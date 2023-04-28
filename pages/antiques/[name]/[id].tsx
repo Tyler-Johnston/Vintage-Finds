@@ -119,23 +119,22 @@ export default function AntiqueTest() {
     return (
         <>
             {antique ? (
-                <div>
-                    <p>{antique.name}</p>
-                    <p>{antique.description}</p>
-                    <p>{antique.price}</p>
-                    <img src={antique.url} alt="antique" width={400} height={400} />
-                    <p>address: {address ? address.country + address.city + address.road + address.state : ''}</p>
-                    <p>cheapest cost: {shipmentData ? shipmentData.rates[CHEAPEST].amount : ''}</p>
-                    <p>best value: {shipmentData ? shipmentData.rates[BESTVALUE].amount : ''}</p>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <div>
+                        <p>{antique.name}</p>
+                        <img src={antique.url} alt="antique" width={400} height={400} />
+                        <p>{antique.description}</p>
+                        <p>${antique.price}</p>
+                        <p>cheapest cost: ${shipmentData ? shipmentData.rates[CHEAPEST].amount : 'X'} and will take {shipmentData ? shipmentData.rates[CHEAPEST].estimated_days : 'unknown'} days to arrive</p>
+                        <p>best value cost: ${shipmentData ? shipmentData.rates[BESTVALUE].amount : 'X'}  and will take {shipmentData ? shipmentData.rates[BESTVALUE].estimated_days : 'unknown'} days to arrive</p>
+                    </div>
                 </div>
             )
-                 : (
-                    <div>
-                        <p>antiques was null or something?</p>
-                        <p>antique data: {antique}</p>
-                        <p>antique id</p>
-                    </div>
-                 )}
+            : (
+                <div>
+                    <p>antiques was null or something?</p>
+                </div>
+            )}
         </>
     );
 }
