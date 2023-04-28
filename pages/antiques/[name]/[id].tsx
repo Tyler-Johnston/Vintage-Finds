@@ -71,10 +71,6 @@ export default function AntiqueTest() {
 
     function getShipmentInfo() {
         if (address) {
-            console.log('beglength ', antique?.length);
-            console.log('begwidth ', antique?.width);
-            console.log('begheight ', antique?.height);
-            console.log('begweight ', antique?.weight);
             const addressFrom = {
                 street1: address.road,
                 city: address.city,
@@ -106,23 +102,9 @@ export default function AntiqueTest() {
                 if (err) {
                     console.log(err);
                 } else {
-                    console.log('rates : %s', JSON.stringify(shipmentInfo.rates, null, 2));
                     setShipmentData(shipmentInfo);
                 }
             });
-        }
-    }
-
-    function getAllRates() {
-        if (shipmentData) {
-            console.log('in getall rates');
-            for (let i = 0; i < shipmentData.rates.length; i += 1) {
-                console.log('value of i: ', i);
-                console.log(shipmentData.rates[i].attributes);
-                console.log(shipmentData.rates[i].amount);
-                console.log('duration terms: ', shipmentData.rates[i].duration_terms);
-                console.log('estimated days: ', shipmentData.rates[i].estimated_days);
-            }
         }
     }
 
@@ -133,10 +115,6 @@ export default function AntiqueTest() {
     useEffect(() => {
         getShipmentInfo();
     }, [address]);
-
-    useEffect(() => {
-        getAllRates();
-    }, [shipmentData]);
 
     return (
         <>

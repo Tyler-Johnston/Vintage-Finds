@@ -9,9 +9,9 @@ import {
     Button,
   } from '@mantine/core';
 import { db, storage } from '../../lib/firebase';
-import { Antique } from '../../dto/antique';
+import { AntiqueProp } from '../../dto/antique';
 
-export default function UpdateAntique(antique: Antique) {
+export default function UpdateAntique({ antique } : AntiqueProp) {
     const [name, setName] = useState(antique.name);
     const [description, setDescription] = useState(antique.description);
     const [condition, setCondition] = useState(antique.condition);
@@ -34,7 +34,7 @@ export default function UpdateAntique(antique: Antique) {
     }
 
     function checkInputs() {
-        if (name === '' || condition === '' || description === '' || Number.isNaN(price)) {
+        if (name === '' || condition === '' || description === '' || Number.isNaN(price) || Number.isNaN(width) || Number.isNaN(height) || Number.isNaN(weight)) {
             setError('You are missing a required field');
             return false;
         }
