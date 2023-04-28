@@ -24,6 +24,7 @@ export default function HomePage() {
   return (
     <>
       <HeaderSearch links={headerLinks} />
+      {user?.email}
       <GridDashboard admin={false} />
     </>
   );

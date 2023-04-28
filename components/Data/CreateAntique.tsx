@@ -32,11 +32,9 @@ export default function CreateAntique() {
         if (name === '' || condition === '' || description === '' || Number.isNaN(price) || image === null) {
             setError('You are missing a required field');
             return false;
-        // eslint-disable-next-line no-else-return
-        } else {
-            setError('');
-            return true;
         }
+        setError('');
+        return true;
       }
 
     function clearInputs() {
@@ -48,6 +46,7 @@ export default function CreateAntique() {
       }
 
     async function writeUserData() {
+      try {
         const antiquesRef = databaseRef(db, 'antiques/');
         const newAntiqueRef = push(antiquesRef);
         const newAntiqueKey = newAntiqueRef.key;
@@ -62,8 +61,11 @@ export default function CreateAntique() {
           price,
           sale: false,
         });
-        clearInputs();
+      } catch (err) {
+        setError('You are not authorized to write to the database');
       }
+      clearInputs();
+    }
 
     return (
         <>
