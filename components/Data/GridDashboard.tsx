@@ -12,7 +12,7 @@ export default function GridDashboard(props: isAdmin) {
   const [antiques, setAntiques] = useState<Antique[]>([]);
   const theme = useMantineTheme();
   const [isMobile, setIsMobile] = useState(false);
-  const [isDbUpdated, setIsDbUpdated] = useState(false);
+  const { userAgent } = navigator;
 
   function generateSlug(name: string, id: string) {
     const noSlashes = name.replace(/\//g, '').toLowerCase();
@@ -32,14 +32,14 @@ export default function GridDashboard(props: isAdmin) {
     }).catch((error) => {
       console.error(error);
     });
-    setIsDbUpdated(false);
   }
 
   function listenForChanges() {
     const dbRef = ref(db, 'antiques/');
     onValue(dbRef, (snapshot) => {
       if (snapshot.exists()) {
-        setIsDbUpdated(true);
+        const data = Object.values(snapshot.val()) as Antique[];
+        setAntiques(data);
       } else {
         console.log('No data available');
       }
@@ -51,16 +51,8 @@ export default function GridDashboard(props: isAdmin) {
   useEffect(() => {
     getAntiqueData();
     listenForChanges();
-    const { userAgent } = navigator;
     setIsMobile(/iPhone|iPad|iPod|Android/i.test(userAgent));
   }, []);
-
-  useEffect(() => {
-    if (isDbUpdated) {
-      console.log('called the isDbUpdated use effect hook, and it is true');
-      getAntiqueData();
-    }
-  }, [isDbUpdated]);
 
     return (
         <>
