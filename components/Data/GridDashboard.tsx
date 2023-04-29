@@ -12,7 +12,6 @@ export default function GridDashboard(props: isAdmin) {
   const [antiques, setAntiques] = useState<Antique[]>([]);
   const theme = useMantineTheme();
   const [isMobile, setIsMobile] = useState(false);
-  const { userAgent } = navigator;
 
   function generateSlug(name: string, id: string) {
     const noSlashes = name.replace(/\//g, '').toLowerCase();
@@ -51,6 +50,7 @@ export default function GridDashboard(props: isAdmin) {
   useEffect(() => {
     getAntiqueData();
     listenForChanges();
+    const { userAgent } = navigator;
     setIsMobile(/iPhone|iPad|iPod|Android/i.test(userAgent));
   }, []);
 
