@@ -20,7 +20,7 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
       { link: `${backTrack}/login`, label: 'login' },
   ];
   if (user) {
-    const signup = { link: `${backTrack}/logout`, label: 'sign out' };
+    const signup = { link: `${backTrack}/logout`, label: 'log out' };
     headerLinks.push(signup);
     headerLinks = headerLinks.filter(item => item.label !== 'login');
     headerLinks = headerLinks.filter(item => item.label !== 'sign up');
