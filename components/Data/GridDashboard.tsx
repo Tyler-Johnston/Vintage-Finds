@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ref, get, child, onValue } from 'firebase/database';
-import { Grid, Container, useMantineTheme } from '@mantine/core';
+import { Grid } from '@mantine/core';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Antique } from '../../dto/antique';
@@ -10,7 +10,6 @@ import UpdateAntique from './UpdateAntique';
 
 export default function GridDashboard(props: isAdmin) {
   const [antiques, setAntiques] = useState<Antique[]>([]);
-  const theme = useMantineTheme();
   const [isMobile, setIsMobile] = useState(false);
 
   function generateSlug(name: string, id: string) {
@@ -59,13 +58,11 @@ export default function GridDashboard(props: isAdmin) {
           {antiques.length > 0 ? (
           <Grid>
             {antiques.map((antique: Antique) => (
-              <Grid.Col key={antique.id} span={isMobile ? 6 : 4}>
-                <Container style={{ backgroundColor: theme.colorScheme === 'light' ? '#e9ecef' : '#252525' }}>
-                  <h3>{antique.name}</h3>
+              <Grid.Col key={antique.id} span={isMobile ? 6 : 2}>
                   {antique.url && (
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <div>
                       <Link href={`/antiques/${generateSlug(antique.name, antique.id)}`}>
-                        <Image src={antique.url} alt="antique" width={isMobile ? 100 : 300} height={isMobile ? 100 : 300} />
+                        <Image src={antique.url} alt="antique" width={isMobile ? 100 : 200} height={isMobile ? 100 : 200} />
                       </Link>
                     </div>
                   )}
@@ -73,18 +70,14 @@ export default function GridDashboard(props: isAdmin) {
                     <UpdateAntique antique={antique} />
                   ) : (
                     <div>
-                      <p>Description: {antique.description}</p>
-                      <p>Price: ${antique.price}</p>
-                      <p>{antique.sale ? 'on sale' : ''}</p>
-                      <p>Condition: {antique.condition}</p>
+                      <p>${antique.price}</p>
                     </div>
                   )}
-                </Container>
               </Grid.Col>
             ))}
           </Grid>
             ) : (
-              ''
+              'there is nothing listed for sale'
             )}
         </>
     );

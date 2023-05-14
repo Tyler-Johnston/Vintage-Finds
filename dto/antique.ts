@@ -6,10 +6,6 @@ export interface Antique {
     condition: string;
     price: number;
     sale?: boolean;
-    length?: number,
-    width?: number,
-    height?: number,
-    weight?: number,
   }
   export interface AntiqueProp {
     antique: Antique;
