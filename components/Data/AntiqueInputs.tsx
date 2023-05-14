@@ -23,6 +23,7 @@ export default function AntiqueInputs({ newAntique, antique }:
     function checkInputs() {
       const errors = [];
       name === '' && errors.push('Name');
+      image === null && errors.push('Image');
       condition === '' && errors.push('Condition');
       description === '' && errors.push('Description');
       (price === '' || Number.isNaN(price)) && errors.push('Price');
