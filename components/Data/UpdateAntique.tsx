@@ -12,11 +12,11 @@ import { db, storage } from '../../lib/firebase';
 import { AntiqueProp } from '../../dto/antique';
 
 export default function UpdateAntique({ antique } : AntiqueProp) {
-    const [name, setName] = useState(antique.name);
-    const [description, setDescription] = useState(antique.description);
-    const [condition, setCondition] = useState(antique.condition);
-    const [price, setPrice] = useState(antique.price);
-    const [error, setError] = useState('');
+    const [name, setName] = useState<string>(antique.name);
+    const [description, setDescription] = useState<string>(antique.description);
+    const [condition, setCondition] = useState<string>(antique.condition);
+    const [price, setPrice] = useState<number | ''>(antique.price);
+    const [error, setError] = useState<string>('');
     const [image, setImage] = useState<File | null>(null);
 
     async function uploadImage() {
@@ -114,11 +114,13 @@ export default function UpdateAntique({ antique } : AntiqueProp) {
             required
             value={price}
             onChange={(val: string | number) => {
-            if (typeof val === 'number') {
+              if (val === '' || val === null) {
+                setPrice('');
+              } else if (typeof val === 'number') {
                 setPrice(val);
-            } else {
+              } else {
                 setPrice(parseFloat(val));
-            }
+              }
             }}
           />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>

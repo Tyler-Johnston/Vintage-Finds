@@ -11,11 +11,11 @@ import {
 import { db, storage } from '../../lib/firebase';
 
 export default function CreateAntique() {
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [condition, setCondition] = useState('');
-    const [price, setPrice] = useState(20);
-    const [error, setError] = useState('');
+    const [name, setName] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
+    const [condition, setCondition] = useState<string>('');
+    const [price, setPrice] = useState<number | ''>(20);
+    const [error, setError] = useState<string>('');
     const [image, setImage] = useState<File | null>(null);
 
     async function uploadImage(id: string) {
@@ -111,11 +111,13 @@ export default function CreateAntique() {
             required
             value={price}
             onChange={(val: string | number) => {
-            if (typeof val === 'number') {
+              if (val === '' || val === null) {
+                setPrice('');
+              } else if (typeof val === 'number') {
                 setPrice(val);
-            } else {
+              } else {
                 setPrice(parseFloat(val));
-            }
+              }
             }}
           />
           <Button type="button" onClick={() => checkInputs() ? writeUserData() : console.log('invalid')}>
