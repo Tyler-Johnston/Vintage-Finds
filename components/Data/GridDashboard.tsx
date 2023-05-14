@@ -4,11 +4,10 @@ import { Grid } from '@mantine/core';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Antique } from '../../dto/antique';
-import { isAdmin } from '../../dto/isAdmin';
 import { db } from '../../lib/firebase';
 import AntiqueInputs from './AntiqueInputs';
 
-export default function GridDashboard(props: isAdmin) {
+export default function GridDashboard({ isAdmin }: { isAdmin: boolean }) {
   const [antiques, setAntiques] = useState<Antique[]>([]);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -66,7 +65,7 @@ export default function GridDashboard(props: isAdmin) {
                       </Link>
                     </div>
                   )}
-                  {props.admin ? (
+                  {isAdmin ? (
                     <AntiqueInputs newAntique={false} antique={antique} />
                   ) : (
                     <div>
@@ -77,7 +76,7 @@ export default function GridDashboard(props: isAdmin) {
             ))}
           </Grid>
             ) : (
-              'there is nothing listed for sale'
+              ''
             )}
         </>
     );

@@ -23,7 +23,7 @@ export default function Admin() {
             {authorized ? (
                 <div>
                      <AntiqueInputs newAntique />
-                     <GridDashboard admin />
+                     <GridDashboard isAdmin />
                 </div>
             ) : (
                 <div>

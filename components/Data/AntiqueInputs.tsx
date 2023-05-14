@@ -105,7 +105,7 @@ export default function AntiqueInputs({ newAntique, antique }:
                 await update(antiquesRef, dataToUpdate);
               } catch (err) {
                 setError('You are not authorized to write to the database');
-              }
+            }
         }
     }
 
