@@ -18,6 +18,7 @@ import { auth } from '../../lib/firebase';
 export function LoginTitle() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -25,6 +26,9 @@ export function LoginTitle() {
     signInWithEmailAndPassword(auth, email, password)
     .then(() => {
       router.push('/');
+    })
+    .catch((err) => {
+      setError(err.message);
     });
   };
 
@@ -70,6 +74,9 @@ export function LoginTitle() {
           </Button>
         </form>
       </Paper>
+      <div style={{ display: 'flex', justifyContent: 'center', color: 'red' }}>
+        {error}
+      </div>
     </Container>
   );
 }

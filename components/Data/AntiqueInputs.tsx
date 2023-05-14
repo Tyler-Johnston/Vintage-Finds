@@ -23,7 +23,7 @@ export default function AntiqueInputs({ newAntique, antique }:
     function checkInputs() {
       const errors = [];
       name === '' && errors.push('Name');
-      image === null && errors.push('Image');
+      if (newAntique) image === null && errors.push('Image');
       condition === '' && errors.push('Condition');
       description === '' && errors.push('Description');
       (price === '' || Number.isNaN(price)) && errors.push('Price');
@@ -44,8 +44,19 @@ export default function AntiqueInputs({ newAntique, antique }:
     async function uploadImage(id: string) {
         if (image) {
           const fileRef = storageRef(storage, `antiqueimages/${id}`);
-          await uploadBytes(fileRef, image);
-          const downloadUrl = await getDownloadURL(storageRef(storage, `antiqueimages/${id}`));
+          // Handle the case where the download url exists before attempting to upload an new image
+          let downloadUrl;
+          try {
+            downloadUrl = await getDownloadURL(storageRef(storage, `antiqueimages/${id}`));
+          } catch (downloadUrlError) {
+            // The download URL doesn't exist. Upload the new image and handle the case where firebase's uploadBytes function fails
+            try {
+                await uploadBytes(fileRef, image);
+            } catch (uploadBytesError) {
+              console.log(uploadBytesError);
+            }
+            downloadUrl = await getDownloadURL(fileRef);
+          }
           return downloadUrl;
         }
         return 'no image!';
@@ -69,7 +80,7 @@ export default function AntiqueInputs({ newAntique, antique }:
           });
         } catch (err) {
           console.log('error: ', err);
-          setError('You are not authorized to write to the database');
+          setError('You are not authorized to add a new antique');
         }
         clearInputs();
     }
@@ -83,7 +94,7 @@ export default function AntiqueInputs({ newAntique, antique }:
                 const imageRef = storageRef(storage, `antiqueimages/${antique.id}`);
                 await deleteObject(imageRef);
             } catch (err) {
-                setError('You are not authorized to delete from the database');
+                setError('You are not authorized to delete this antique');
             }
         }
     }
@@ -104,7 +115,7 @@ export default function AntiqueInputs({ newAntique, antique }:
 
                 await update(antiquesRef, dataToUpdate);
               } catch (err) {
-                setError('You are not authorized to write to the database');
+                setError('You are not authorized to update this antique');
             }
         }
     }
