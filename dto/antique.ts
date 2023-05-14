@@ -4,9 +4,6 @@ export interface Antique {
     description: string;
     url: string;
     condition: string;
-    price: number;
+    price: number | '';
     sale?: boolean;
-  }
-  export interface AntiqueProp {
-    antique: Antique;
   }

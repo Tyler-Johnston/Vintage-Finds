@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import UserContext from '../context/user';
 import { ErrorTitle } from '../components/Error/Error';
 import GridDashboard from '../components/Data/GridDashboard';
-import CreateAntique from '../components/Data/CreateAntique';
+import AntiqueInputs from '../components/Data/AntiqueInputs';
 
 export default function Admin() {
     const user = useContext(UserContext);
@@ -22,7 +22,7 @@ export default function Admin() {
         <>
             {authorized ? (
                 <div>
-                     <CreateAntique />
+                     <AntiqueInputs newAntique />
                      <GridDashboard admin />
                 </div>
             ) : (

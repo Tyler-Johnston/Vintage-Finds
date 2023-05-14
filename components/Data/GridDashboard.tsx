@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Antique } from '../../dto/antique';
 import { isAdmin } from '../../dto/isAdmin';
 import { db } from '../../lib/firebase';
-import UpdateAntique from './UpdateAntique';
+import AntiqueInputs from './AntiqueInputs';
 
 export default function GridDashboard(props: isAdmin) {
   const [antiques, setAntiques] = useState<Antique[]>([]);
@@ -67,7 +67,7 @@ export default function GridDashboard(props: isAdmin) {
                     </div>
                   )}
                   {props.admin ? (
-                    <UpdateAntique antique={antique} />
+                    <AntiqueInputs newAntique={false} antique={antique} />
                   ) : (
                     <div>
                       <p>${antique.price}</p>
