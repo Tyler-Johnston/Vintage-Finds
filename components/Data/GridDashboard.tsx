@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ref, get, child, onValue } from 'firebase/database';
+import { ref, onValue } from 'firebase/database';
 import { Grid } from '@mantine/core';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -17,20 +17,6 @@ export default function GridDashboard({ isAdmin }: { isAdmin: boolean }) {
     return `${slug}/${id}`;
   }
 
-  function getAntiqueData() {
-    const dbRef = ref(db);
-    get(child(dbRef, 'antiques/')).then((snapshot) => {
-      if (snapshot.exists()) {
-        const data = Object.values(snapshot.val()) as Antique[];
-        setAntiques(data);
-      } else {
-        console.log('No data available');
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
-  }
-
   function listenForChanges() {
     const dbRef = ref(db, 'antiques/');
     onValue(dbRef, (snapshot) => {
@@ -46,7 +32,6 @@ export default function GridDashboard({ isAdmin }: { isAdmin: boolean }) {
   }
 
   useEffect(() => {
-    getAntiqueData();
     listenForChanges();
     const { userAgent } = navigator;
     setIsMobile(/iPhone|iPad|iPod|Android/i.test(userAgent));
@@ -60,7 +45,7 @@ export default function GridDashboard({ isAdmin }: { isAdmin: boolean }) {
               <Grid.Col key={antique.id} span={isMobile ? 6 : 2}>
                   {antique.url && (
                     <div>
-                      <Link href={`/antiques/${generateSlug(antique.name, antique.id)}`}>
+                      <Link href={`/antiques/${generateSlug(antique.name, antique.id)}`} passHref>
                         <Image src={antique.url} alt="antique" width={isMobile ? 100 : 200} height={isMobile ? 100 : 200} />
                       </Link>
                     </div>
