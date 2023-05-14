@@ -1,6 +1,5 @@
 import { createStyles, Header, Group, rem } from '@mantine/core';
 import { useRouter } from 'next/router';
-import { ColorSchemeToggle } from './ColorSchemeToggle';
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -72,7 +71,6 @@ export function MyHeader({ links }: HeaderProps) {
           <Group ml={50} spacing={5} className={classes.links}>
             {items}
           </Group>
-          <ColorSchemeToggle />
         </Group>
       </div>
     </Header>

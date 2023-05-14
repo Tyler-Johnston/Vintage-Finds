@@ -29,14 +29,16 @@ export default function CreateAntique() {
     }
 
     function checkInputs() {
-        if (name === '' || condition === '' || description === '' || Number.isNaN(price) || image === null) {
-            setError('You are missing a required field');
-            return false;
-        }
-        setError('');
-        return true;
-      }
+      const errors = [];
+      name === '' && errors.push('Name');
+      condition === '' && errors.push('Condition');
+      description === '' && errors.push('Description');
+      Number.isNaN(price) && errors.push('Price');
 
+      const errorMessage = `Missing Attribute${errors.length > 1 ? 's' : ''}: ${errors.join(', ')}`;
+      setError(errors.length > 0 ? errorMessage : '');
+      return !errors.length;
+    }
     function clearInputs() {
         setName('');
         setDescription('');
@@ -119,7 +121,9 @@ export default function CreateAntique() {
           <Button type="button" onClick={() => checkInputs() ? writeUserData() : console.log('invalid')}>
             Submit
           </Button>
-          {error}
+          <div style={{ color: 'red' }}>
+            {error}
+          </div>
         </>
     );
 }

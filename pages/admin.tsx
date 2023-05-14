@@ -22,7 +22,6 @@ export default function Admin() {
         <>
             {authorized ? (
                 <div>
-                    <h1>Hello, {user?.email}</h1>
                      <CreateAntique />
                      <GridDashboard admin />
                 </div>

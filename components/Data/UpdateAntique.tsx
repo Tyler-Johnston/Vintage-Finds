@@ -30,13 +30,16 @@ export default function UpdateAntique({ antique } : AntiqueProp) {
     }
 
     function checkInputs() {
-        if (name === '' || condition === '' || description === '' || Number.isNaN(price)) {
-            setError('You are missing a required field');
-            return false;
-        }
-        setError('');
-        return true;
-      }
+      const errors = [];
+      name === '' && errors.push('Name');
+      condition === '' && errors.push('Condition');
+      description === '' && errors.push('Description');
+      Number.isNaN(price) && errors.push('Price');
+
+      const errorMessage = `Missing Attribute${errors.length > 1 ? 's' : ''}: ${errors.join(', ')}`;
+      setError(errors.length > 0 ? errorMessage : '');
+      return !errors.length;
+    }
 
     async function updateUserData() {
       try {
@@ -119,15 +122,16 @@ export default function UpdateAntique({ antique } : AntiqueProp) {
             }}
           />
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Button type="button" onClick={() => checkInputs() ? updateUserData() : console.log('invalid')}>
-              Update
-          </Button>
-
-          <Button type="button" onClick={deleteAntique}>
-              Delete
-          </Button>
+            <Button type="button" onClick={() => checkInputs() ? updateUserData() : console.log('invalid')}>
+                Update
+            </Button>
+            <Button type="button" onClick={deleteAntique}>
+                Delete
+            </Button>
           </div>
-          {error}
+          <div style={{ color: 'red' }}>
+            {error}
+          </div>
         </>
     );
 }
