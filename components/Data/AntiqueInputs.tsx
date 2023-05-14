@@ -42,24 +42,13 @@ export default function AntiqueInputs({ newAntique, antique }:
     }
 
     async function uploadImage(id: string) {
-        if (image) {
-          const fileRef = storageRef(storage, `antiqueimages/${id}`);
-          // Handle the case where the download url exists before attempting to upload an new image
-          let downloadUrl;
-          try {
-            downloadUrl = await getDownloadURL(storageRef(storage, `antiqueimages/${id}`));
-          } catch (downloadUrlError) {
-            // The download URL doesn't exist. Upload the new image and handle the case where firebase's uploadBytes function fails
-            try {
-                await uploadBytes(fileRef, image);
-            } catch (uploadBytesError) {
-              console.log(uploadBytesError);
-            }
-            downloadUrl = await getDownloadURL(fileRef);
-          }
-          return downloadUrl;
-        }
-        return 'no image!';
+      if (image) {
+        const fileRef = storageRef(storage, `antiqueimages/${id}`);
+        await uploadBytes(fileRef, image);
+        const downloadUrl = await getDownloadURL(fileRef);
+        return downloadUrl;
+      }
+      return 'no image!';
     }
 
     async function writeUserData() {
