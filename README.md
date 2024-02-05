@@ -1,39 +1,20 @@
-# Mantine Next Template
+# Vintage Finds
 
-Get started with Mantine + Next with just a few button clicks.
-Click `Use this template` button at the header of repository or [follow this link](https://github.com/mantinedev/mantine-next-template/generate) and
-create new repository with `@mantine` packages. Note that you have to be logged in to GitHub to generate template.
+Vintage Finds is a web platform designed for antique enthusiasts and collectors. The website allows an admin to post various antique items with details such as name, image, description, condition, and price. Users can browse through a curated selection of antiques, offering them a glance into the past and the opportunity to purchase unique items.
+
+
+![AdminPage](adminpage.png)
 
 ## Features
 
-This template comes with several essential features:
+- **Admin Access**: Secure admin access to post new antique items.
+- **User View**: A clean and intuitive interface for users to view antique items.
+- **Image Upload**: Admins can upload images to visually represent each antique.
+- **Detailed Descriptions**: Each item comes with a detailed description and condition report.
+- **Pricing Information**: Visible pricing to inform potential buyers.
 
-- Server side rendering setup for Mantine
-- Color scheme is stored in cookie to avoid color scheme mismatch after hydration
-- Storybook with color scheme toggle
-- Jest with react testing library
-- ESLint setup with [eslint-config-mantine](https://github.com/mantinedev/eslint-config-mantine)
+## Tech Stack
 
-## npm scripts
-
-### Build and dev scripts
-
-- `dev` – start dev server
-- `build` – bundle application for production
-- `export` – exports static website to `out` folder
-- `analyze` – analyzes application bundle with [@next/bundle-analyzer](https://www.npmjs.com/package/@next/bundle-analyzer)
-
-### Testing scripts
-
-- `typecheck` – checks TypeScript types
-- `lint` – runs ESLint
-- `prettier:check` – checks files with Prettier
-- `jest` – runs jest tests
-- `jest:watch` – starts jest watch
-- `test` – runs `jest`, `prettier:check`, `lint` and `typecheck` scripts
-
-### Other scripts
-
-- `storybook` – starts storybook dev server
-- `storybook:build` – build production storybook bundle to `storybook-static`
-- `prettier:write` – formats all files with Prettier
+- **Frontend**: Next.js
+- **Database**: Google's Relational Database
+- **Styling**: Custom CSS / Styled Components and the Mantine React.js library
