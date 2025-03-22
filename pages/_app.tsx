@@ -1,18 +1,17 @@
 import { useState, useEffect } from 'react';
-import NextApp, { AppProps, AppContext } from 'next/app';
-import { getCookie, setCookie } from 'cookies-next';
+import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
+import { MantineProvider, ColorScheme } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
 import { Analytics } from '@vercel/analytics/react';
 import { onAuthStateChanged } from 'firebase/auth';
 import UserContext, { User } from '../context/user';
 import { auth } from '../lib/firebase';
 import { MyHeader } from '../components/Header/MyHeader';
+import '../global.css';
 
 export default function App(props: AppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
-  const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
   const [user, setUser] = useState<User | null>(null);
 
   const backTrack = '';
@@ -31,12 +30,6 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
     }
   }
 
-  const toggleColorScheme = (value?: ColorScheme) => {
-    const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
-    setColorScheme(nextColorScheme);
-    setCookie('mantine-color-scheme', nextColorScheme, { maxAge: 60 * 60 * 24 * 30 });
-  };
-
   useEffect(() => {
     const cleanup = onAuthStateChanged(auth, (guest) => {
       setUser(guest as User);
@@ -52,22 +45,15 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
 
-      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-        <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-          <MyHeader links={headerLinks} />
-          <Component {...pageProps} />
-          <Notifications />
-        </MantineProvider>
-      </ColorSchemeProvider>
+      <MantineProvider
+        theme={{ colorScheme: 'light' }}
+        withNormalizeCSS
+      >
+        <MyHeader links={headerLinks} />
+        <Component {...pageProps} />
+        <Notifications />
+      </MantineProvider>
       <Analytics />
     </UserContext.Provider>
   );
 }
-
-App.getInitialProps = async (appContext: AppContext) => {
-  const appProps = await NextApp.getInitialProps(appContext);
-  return {
-    ...appProps,
-    colorScheme: getCookie('mantine-color-scheme', appContext.ctx) || 'dark',
-  };
-};

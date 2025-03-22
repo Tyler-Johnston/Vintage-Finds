@@ -1,4 +1,4 @@
-import { createStyles, Header, Group, rem } from '@mantine/core';
+import { createStyles, Header, Group, rem, Image, Text } from '@mantine/core';
 import { useRouter } from 'next/router';
 
 const useStyles = createStyles((theme) => ({
@@ -32,12 +32,13 @@ const useStyles = createStyles((theme) => ({
     padding: `${rem(8)} ${rem(12)}`,
     borderRadius: theme.radius.sm,
     textDecoration: 'none',
-    color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.colors.gray[7],
+    color: '#12263A',
     fontSize: theme.fontSizes.sm,
     fontWeight: 500,
 
     '&:hover': {
-      backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+      backgroundColor: '#12263A',
+      color: '#e1f0f7',
     },
   },
 }));
@@ -61,10 +62,11 @@ export function MyHeader({ links }: HeaderProps) {
   ));
 
   return (
-    <Header height={56} className={classes.header} mb={30}>
+    <Header height={58} className="headerBackground" mb={30}>
       <div className={classes.inner}>
-        <Group onClick={() => router.push('/')}>
-          <p>Vintage Finds</p>
+        <Group onClick={() => router.push('/')} className={classes.link}>
+          <Image radius="xs" src="/home.png" alt="Vintage Finds Logo" height={20} fit="contain" />
+          <Text>Vintage Finds</Text>
         </Group>
 
         <Group>

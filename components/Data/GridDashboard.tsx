@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ref, onValue } from 'firebase/database';
-import { Grid } from '@mantine/core';
+import { Grid, Card, Text } from '@mantine/core';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Antique } from '../../dto/antique';
@@ -39,23 +39,37 @@ export default function GridDashboard({ isAdmin }: { isAdmin: boolean }) {
 
     return (
         <>
+        <div className="gridColor">
           {antiques.length > 0 ? (
           <Grid>
             {antiques.map((antique: Antique) => (
               <Grid.Col key={antique.id} span={isMobile ? 6 : 2}>
                   {antique.url && (
-                    <div>
-                      <Link href={`/antiques/${generateSlug(antique.name, antique.id)}`} passHref>
-                        <Image src={antique.url} alt="antique" width={isMobile ? 100 : 200} height={isMobile ? 100 : 200} />
-                      </Link>
-                    </div>
-                  )}
-                  {isAdmin ? (
-                    <AntiqueInputs newAntique={false} antique={antique} />
-                  ) : (
-                    <div>
-                      <p>${antique.price}</p>
-                    </div>
+                    <Card shadow="sm" padding="lg" radius="md" withBorder className="">
+                      <Card.Section className="centerContent">
+                        <Link href={`/antiques/${generateSlug(antique.name, antique.id)}`} passHref>
+                          <Image
+                            src={antique.url}
+                            alt="antique"
+                            width={isMobile ? 100 : 210}
+                            height={isMobile ? 100 : 200}
+                            className="imageMargin"
+                          />
+                        </Link>
+                      </Card.Section>
+                      <Card.Section className="centerContent">
+                        <Text className="ellipsisText" fw={500}>{antique.name}</Text>
+                      </Card.Section>
+                      <Card.Section className="centerContent">
+                      {isAdmin ? (
+                          <AntiqueInputs newAntique={false} antique={antique} />
+                          ) : (
+                          <div>
+                            <p>${antique.price}</p>
+                          </div>
+                      )}
+                      </Card.Section>
+                    </Card>
                   )}
               </Grid.Col>
             ))}
@@ -63,6 +77,7 @@ export default function GridDashboard({ isAdmin }: { isAdmin: boolean }) {
             ) : (
               ''
             )}
+        </div>
         </>
     );
 }
