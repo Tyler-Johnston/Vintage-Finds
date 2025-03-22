@@ -4,6 +4,10 @@ import { getCookie, setCookie } from 'cookies-next';
 import Head from 'next/head';
 import { MantineProvider, ColorScheme, ColorSchemeProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
+
+// Importing the Analytics component triggers Vercel Analytics tracking.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Analytics } from '@vercel/analytics/react';
 import { onAuthStateChanged } from 'firebase/auth';
 import UserContext, { User } from '../context/user';
 import { auth } from '../lib/firebase';
