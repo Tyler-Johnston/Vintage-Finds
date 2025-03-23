@@ -1,14 +1,13 @@
 body {
-  background-image: url("/bg.jpg"); /* Make sure to use a relative path */
-  background-size: 50%; /* Increase size to zoom out, reduce if you want to zoom in */
+  background-color: #fbf7ea;
 }
 
 .gridColor {
-  background-color: #C5D8D1;
+  background-color: #efefedf0;
 }
 
 .headerBackground {
-  background-color: #C5D8D1;
+  background-color: #efefedf0
 }
 
 .centerContent {
@@ -21,7 +20,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 100%; /* Fill the height */
+  height: 100%;
 }
 
 .imageMargin {
@@ -31,7 +30,7 @@ body {
 
 .ellipsisText {
   display: inline-block;
-  max-width: 180px; /* Adjust width as needed */
+  max-width: 180px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -40,4 +39,16 @@ body {
 .imageContainer {
   position: relative;
   display: inline-block;
+}
+
+.carBg1 {
+  background-color: #7D4E57;
+}
+
+.carBg2 {
+  background-color: #D66853;
+}
+
+.carBg3 {
+  background-color: #364156;
 }
