@@ -45,7 +45,7 @@ export default function GridDashboard({ isAdmin }: { isAdmin: boolean }) {
             {antiques.map((antique: Antique) => (
               <Grid.Col key={antique.id} span={isMobile ? 6 : 2}>
                   {antique.url && (
-                    <Card shadow="sm" padding="lg" radius="md" withBorder className="">
+                    <Card shadow="sm" padding="lg" radius="md" withBorder>
                       <Card.Section className="centerContent">
                         <Link href={`/antiques/${generateSlug(antique.name, antique.id)}`} passHref>
                           <Image
@@ -60,7 +60,7 @@ export default function GridDashboard({ isAdmin }: { isAdmin: boolean }) {
                       <Card.Section className="centerContent">
                         <Text className="ellipsisText" fw={500}>{antique.name}</Text>
                       </Card.Section>
-                      <Card.Section className="centerContent">
+                      <Card.Section className={isAdmin ? '' : 'centerContent'}>
                       {isAdmin ? (
                           <AntiqueInputs newAntique={false} antique={antique} />
                           ) : (

@@ -5,7 +5,7 @@ import GridDashboard from '../components/Data/GridDashboard';
 export default function HomePage() {
   return (
     <>
-      <Carousel slideSize="70%" height={270} slideGap="md" loop withIndicators>
+      <Carousel slideSize="70%" height={270} slideGap="md" loop>
         <Carousel.Slide className="carBg1">
         <Image
           radius="xs"
