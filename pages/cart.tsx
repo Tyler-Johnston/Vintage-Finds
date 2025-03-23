@@ -3,6 +3,7 @@ import { ref, get, remove } from 'firebase/database';
 import { Card, Text, Image, Button, Group, Box } from '@mantine/core';
 import { db } from '../lib/firebase';
 import UserContext from '../context/user';
+import { ErrorTitle } from '../components/Error/Error';
 
 export default function Cart() {
   const [cartItems, setCartItems] = useState<any[]>([]);
@@ -51,32 +52,54 @@ export default function Cart() {
 
   return (
     <>
-      <h2>Welcome to the Cart Page</h2>
-      {cartItems.length > 0 ? (
-        <Box>
-          {cartItems.map((item) => (
-            <Card key={item.id} shadow="sm" padding="lg" radius="md" withBorder style={{ marginBottom: '20px' }}>
-              <Group position="apart" style={{ marginBottom: 5 }}>
-                <Text weight={700}>{item.name}</Text>
-                <Text size="lg">${item.price}</Text>
-              </Group>
-              <Image
-                src={item.url}
-                alt={item.name}
-                width={200}
-                height={200}
-                fit="contain"
-                style={{ marginBottom: '10px' }}
-              />
-              <Text>Quantity: {item.quantity}</Text>
-              <Button color="red" variant="light" onClick={() => removeFromCart(item.id)}>
-                Remove
-              </Button>
-            </Card>
-          ))}
-        </Box>
+      {user ? (
+        <div>
+          <h2>Welcome to the Cart Page</h2>
+          {cartItems.length > 0 ? (
+            <Box>
+              {cartItems.map((item) => (
+                <Card
+                  key={item.id}
+                  shadow="sm"
+                  padding="lg"
+                  radius="md"
+                  withBorder
+                  style={{ marginBottom: '20px' }}
+                >
+                  <Group position="apart" style={{ marginBottom: 5 }}>
+                    <Text weight={700}>{item.name}</Text>
+                    <Text size="lg">${item.price}</Text>
+                  </Group>
+                  <Image
+                    src={item.url}
+                    alt={item.name}
+                    width={200}
+                    height={200}
+                    fit="contain"
+                    style={{ marginBottom: '10px' }}
+                  />
+                  <Text>Quantity: {item.quantity}</Text>
+                  <Button
+                    color="red"
+                    variant="light"
+                    onClick={() => removeFromCart(item.id)}
+                  >
+                    Remove
+                  </Button>
+                </Card>
+              ))}
+            </Box>
+          ) : (
+            <Text>No items in your cart.</Text>
+          )}
+        </div>
       ) : (
-        <Text>No items in your cart.</Text>
+        <div>
+          <ErrorTitle
+            number={403}
+            description="You are not authorized to access this webpage"
+          />
+        </div>
       )}
     </>
   );

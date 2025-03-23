@@ -9,7 +9,6 @@ import {
   Title,
   Text,
   Container,
-  Group,
   Button,
 } from '@mantine/core';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -64,11 +63,6 @@ export function LoginTitle() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <Group position="apart" mt="lg">
-            <Anchor component="button" size="sm">
-              <Link href="/forgotpassword">Forgot password?</Link>
-            </Anchor>
-          </Group>
           <Button type="submit" fullWidth mt="xl">
             Sign in
           </Button>
