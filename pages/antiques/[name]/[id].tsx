@@ -1,16 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { Button, Text, Box, Group } from '@mantine/core';
-import { ref, get, child } from 'firebase/database';
+import { ref, get, child, update } from 'firebase/database';
 import { db } from '../../../lib/firebase';
 import { Antique } from '../../../dto/antique';
 import { ErrorTitle } from '../../../components/Error/Error';
+import UserContext from '../../../context/user';
 
 export default function AntiqueTest() {
   const router = useRouter();
   const [antique, setAntique] = useState<Antique>();
+  const user = useContext(UserContext);
 
+  // Get Antique ID from URL
   async function getAntiqueId() {
     const { id } = await router.query;
     const parameters = id as string;
@@ -18,6 +21,7 @@ export default function AntiqueTest() {
     return parameters.substring(index + 1);
   }
 
+  // Fetch Antique Data from Firebase
   async function getAntiqueData() {
     const dbRef = ref(db);
     const id = await getAntiqueId();
@@ -31,6 +35,37 @@ export default function AntiqueTest() {
       }
     } catch (error) {
       console.error(error);
+    }
+  }
+
+  // Add item to cart function
+  async function addToCart(item: Antique) {
+    if (!user) {
+      console.log('no user');
+      return;
+    }
+
+    const cartItemRef = ref(db, `users/${user.uid}/cart/${item.id}`);
+
+    try {
+      // check if the item already exists in the cart
+      const snapshot = await get(cartItemRef);
+      if (snapshot.exists()) {
+        const existingItem = snapshot.val();
+        const updatedQuantity = existingItem.quantity + 1;
+        await update(cartItemRef, { quantity: updatedQuantity });
+        console.log('success yas');
+      } else {
+        await update(cartItemRef, {
+          name: item.name,
+          price: item.price,
+          url: item.url,
+          quantity: 1,
+        });
+        console.log('success again');
+      }
+    } catch (error) {
+      console.error('Failed to add to cart:', error);
     }
   }
 
@@ -67,10 +102,20 @@ export default function AntiqueTest() {
             </Text>
 
             <Group>
-              <Button variant="filled" color="teal" style={{ marginRight: '10px' }}>
+              <Button
+                variant="filled"
+                color="teal"
+                style={{ marginRight: '10px' }}
+                onClick={() => addToCart(antique)}
+              >
                 Add to Cart
               </Button>
-              <Button variant="outline" color="blue">
+              <Button
+                variant="outline"
+                color="blue"
+                component="a"
+                href={`mailto:shopowner@example.com?subject=Inquiry about ${antique.name}&body=Hello, I am interested in the item ${antique.name}. Could you provide more details?`}
+              >
                 Email Shop Owner
               </Button>
             </Group>
