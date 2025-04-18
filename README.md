@@ -18,3 +18,11 @@ Vintage Finds is a web platform designed for antique enthusiasts and collectors.
 - **Frontend**: Next.js
 - **Database**: Google's Relational Database
 - **Styling**: Custom CSS / Styled Components and the Mantine React.js library
+
+## Please Note:
+**as of 4/18/25 - I decided to do a major overhaul. as of now, this is in a WIP state again to add the following features
+- improved UI design
+- fix some admin page bugs
+- populate page with more items
+- cart feature
+- favorites feature
