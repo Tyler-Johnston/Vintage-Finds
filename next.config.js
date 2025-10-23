@@ -2,12 +2,14 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 
-module.exports = withBundleAnalyzer({
+const nextConfig = {
   reactStrictMode: false,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
   images: {
-    domains: ['firebasestorage.googleapis.com'],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'firebasestorage.googleapis.com' },
+    ],
   },
-});
+  turbopack: {},
+};
+
+module.exports = withBundleAnalyzer(nextConfig);
