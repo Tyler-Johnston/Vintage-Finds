@@ -52,7 +52,6 @@
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^14.0.4",
-    "@types/jest": "^27.4.1",
     "@types/node": "^18.11.4",
     "@types/react": "18.0.21",
     "@types/shippo": "^1.7.1",
@@ -70,11 +69,9 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "^0.5.7",
     "eslint-plugin-testing-library": "^5.2.0",
-    "jest": "^27.5.1",
     "prettier": "^2.7.1",
     "storybook-addon-turbo-build": "^1.1.0",
     "storybook-dark-mode": "^4.0.2",
-    "ts-jest": "^27.1.4",
-    "typescript": "4.8.4"
+    "typescript": "^5.3.3"
   }
 }
