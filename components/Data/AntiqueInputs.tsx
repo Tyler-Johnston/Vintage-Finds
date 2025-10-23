@@ -52,27 +52,32 @@ export default function AntiqueInputs({ newAntique, antique }:
     }
 
     async function writeUserData() {
-        try {
-          const antiquesRef = databaseRef(db, 'antiques/');
-          const newAntiqueRef = push(antiquesRef);
-          const newAntiqueKey = newAntiqueRef.key;
-          const url = await uploadImage(newAntiqueKey!);
+      try {
+        const antiquesRef = databaseRef(db, 'antiques');
+        const newAntiqueRef = push(antiquesRef);
+        const newAntiqueKey = newAntiqueRef.key;
 
-          await set(newAntiqueRef, {
-            id: newAntiqueKey,
-            name,
-            url,
-            description,
-            condition,
-            price,
-            sale: false,
-          });
-        } catch (err) {
-          console.log('error: ', err);
-          setError('You are not authorized to add a new antique');
-        }
+        const url = await uploadImage(newAntiqueKey!);
+        const specificAntiqueRef = databaseRef(db, `antiques/${newAntiqueKey}`);
+
+        await set(specificAntiqueRef, {
+          id: newAntiqueKey,
+          name,
+          url,
+          description,
+          condition,
+          price,
+          sale: false,
+        });
+
         clearInputs();
+        setError('');
+      } catch (err) {
+        console.error('error: ', err);
+        setError('You are not authorized to add a new antique');
+      }
     }
+
 
     async function deleteAntique() {
         if (antique) {
@@ -123,6 +128,8 @@ export default function AntiqueInputs({ newAntique, antique }:
             placeholder="Pick file"
             label="Image"
             accept="image/*"
+            withAsterisk
+            required
             value={image}
             onChange={(file: File | null) => setImage(file)}
           />

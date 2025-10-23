@@ -23,7 +23,7 @@ export default function HomePage() {
             src="/featured-collection.jpg"
             alt="Featured Collection"
             height={200}
-            fit="cover"
+            fit="contain"
             style={{ marginTop: '10px' }}
           />
           <Text className="centerContent">
@@ -33,10 +33,10 @@ export default function HomePage() {
         <Carousel.Slide className="carBg3">
           <Image
             radius="xs"
-            src="/about-us.jpg"
+            src="/since.jpg"
             alt="About Vintage Finds"
             height={200}
-            fit="cover"
+            fit="contain"
             style={{ marginTop: '10px' }}
           />
           <Text className="centerContent">

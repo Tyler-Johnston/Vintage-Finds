@@ -7,12 +7,14 @@ import { getStorage } from 'firebase/storage';
 const firebaseConfig = {
   apiKey: 'AIzaSyA0A5BjE0q3SkTgJ2gEK-IGd-PBNrgbxMQ',
   authDomain: 'vintage-finds.firebaseapp.com',
+  databaseURL: 'https://vintage-finds-default-rtdb.firebaseio.com',
   projectId: 'vintage-finds',
   storageBucket: 'vintage-finds.appspot.com',
   messagingSenderId: '954591621495',
   appId: '1:954591621495:web:701634070ae40290393172',
   measurementId: 'G-1KFDB44KYC',
 };
+
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
