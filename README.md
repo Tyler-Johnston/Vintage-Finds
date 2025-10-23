@@ -1,28 +1,45 @@
-# Vintage Finds
+# 🏺 Vintage Finds
 
-Vintage Finds is a web platform designed for antique enthusiasts and collectors. The website allows an admin to post various antique items with details such as name, image, description, condition, and price. Users can browse through a curated selection of antiques, offering them a glance into the past and the opportunity to purchase unique items.
+**Vintage Finds** is a full-stack web platform for antique enthusiasts and collectors.  
+Built with **Next.js** and **Firebase**, it provides an elegant user interface for browsing antiques and a secure admin dashboard for managing inventory in real time.
 
 
-![AdminPage](adminpage.png)
+## ✨ Overview
 
-## Features
+Vintage Finds was developed as a modern digital storefront for a local antique business, combining timeless aesthetics with responsive, real-time technology.
 
-- **Admin Access**: Secure admin access to post new antique items.
-- **User View**: A clean and intuitive interface for users to view antique items.
-- **Image Upload**: Admins can upload images to visually represent each antique.
-- **Detailed Descriptions**: Each item comes with a detailed description and condition report.
-- **Pricing Information**: Visible pricing to inform potential buyers.
+The app enables an **admin user** to post and manage antique listings, while **visitors** can browse items complete with photos, descriptions, and condition reports. All data and images are stored securely in **Firebase Realtime Database** and **Firebase Storage**.
 
-## Tech Stack
 
-- **Frontend**: Next.js
-- **Database**: Google's Relational Database
-- **Styling**: Custom CSS / Styled Components and the Mantine React.js library
+## 🚀 Features
 
-## Please Note:
-**as of 4/18/25 - I decided to do a major overhaul. as of now, this is in a WIP state again to add the following features
-- improved UI design
-- fix some admin page bugs
-- populate page with more items
-- cart feature
-- favorites feature
+### 🧑‍💼 Admin Dashboard
+
+The owner of this hypothetical business would be able to login and have immediate access to this Admin page. In this situation, the buisiness owner wouldn't need to know how Google Firebase or how to program. They could simply upload and edit their listings on the website itself.
+
+- Secure authentication via **Firebase Auth**
+- Add, edit, and delete antique listings
+- Upload and replace item images stored in **Firebase Storage**
+- Real-time updates that sync instantly to the public storefront
+
+![AdminPage](Images/admin_page.png)
+
+### 🛍️ User Experience
+- Clean interface built with **Mantine UI**
+- Real-time inventory display with pricing and condition details. Customers can see exactly what the owner has in stock this way.
+- “Favorites” and “Cart” features under active development
+
+
+![Dashboard](Images/dashboard.png)
+
+
+## 🧰 Tech Stack
+
+| Layer | Technology |
+|-------|-------------|
+| **Frontend** | Next.js (React, TypeScript) |
+| **UI Library** | Mantine UI & Styled Components |
+| **Database** | Firebase Realtime Database |
+| **Storage** | Firebase Cloud Storage |
+| **Auth** | Firebase Authentication |
+| **Hosting** | Vercel |
