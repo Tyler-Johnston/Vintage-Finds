@@ -28,7 +28,7 @@
     "@mantine/hooks": "^6.0.8",
     "@mantine/next": "6.0.2",
     "@mantine/notifications": "6.0.2",
-    "@mantine/prism": "6.0.2",
+    "@mantine/prism": "^6.0.8",
     "@next/bundle-analyzer": "^13.1.6",
     "@sendgrid/mail": "^8.1.6",
     "@tabler/icons": "^1.107.0",
