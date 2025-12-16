@@ -39,7 +39,7 @@
     "embla-carousel-react": "^7.0.3",
     "firebase": "^12.4.0",
     "firebase-admin": "^13.5.0",
-    "next": "^16.0.0",
+    "next": "16.0.10",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "shippo": "^1.7.1"
