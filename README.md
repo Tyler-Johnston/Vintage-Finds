@@ -1,19 +1,19 @@
-# 🏺 Vintage Finds
+# Vintage Finds
 
 **Vintage Finds** is a full-stack web platform for antique enthusiasts and collectors.  
 Built with **Next.js** and **Firebase**, it provides an elegant user interface for browsing antiques and a secure admin dashboard for managing inventory in real time.
 
 
-## ✨ Overview
+## Overview
 
 Vintage Finds was developed as a modern digital storefront for a local antique business, combining timeless aesthetics with responsive, real-time technology.
 
 The app enables an **admin user** to post and manage antique listings, while **visitors** can browse items complete with photos, descriptions, and condition reports. All data and images are stored securely in **Firebase Realtime Database** and **Firebase Storage**.
 
 
-## 🚀 Features
+## Features
 
-### 🧑‍💼 Admin Dashboard
+### Admin Dashboard
 
 The owner of this hypothetical business would be able to login and have immediate access to this Admin page. In this situation, the buisiness owner wouldn't need to know how Google Firebase or how to program. They could simply upload and edit their listings on the website itself.
 
@@ -24,7 +24,7 @@ The owner of this hypothetical business would be able to login and have immediat
 
 ![AdminPage](Images/admin_page.png)
 
-### 🛍️ User Experience
+### User Experience
 - Clean interface built with **Mantine UI**
 - Real-time inventory display with pricing and condition details. Customers can see exactly what the owner has in stock this way.
 - “Favorites” and “Cart” features under active development
@@ -33,7 +33,7 @@ The owner of this hypothetical business would be able to login and have immediat
 ![Dashboard](Images/dashboard.png)
 
 
-## 🧰 Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |-------|-------------|
